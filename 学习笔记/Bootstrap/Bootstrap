@@ -1,0 +1,429 @@
+1.
+<div class="row">
+	<div class="span4">
+	</div>
+	<div class="span8">
+</div>
+	#right offset 2
+	<div class="span3 offset2">
+		<div class="span2">
+			<div class="row">
+				<div class="span1">
+				</div>
+				<div class="span1">
+				</div>
+			</div>
+		<div>
+		<div class="span1">
+		<div>
+	<div>
+
+2.
+<div class="row-fluid">
+	<div class="span4"></div>
+	<div class="span8"></div>
+</div>
+
+3.
+	<div class="container">
+	<div class="container-fluid">
+	<div class="row=fluid">
+	<div class="span4">
+	<div class="span8">
+4.
+	head add meta 
+5.
+	lg:large
+	md:medium
+	sm:small
+	xs:xSmall
+	<div class="col-sm-4">
+
+
+Part-1 Setting up bootsprap
+	
+
+Part-2 Bootstrap Grid System
+
+
+part-6 bootstrap image gallery
+	<image src='...' class="center-block img-responsive"/>
+			class="pull-left img-thumbnail img-responsive"
+			class="pull-right img-..."
+part-7 bootstrap responsive utility classes
+	visible-xs:	Visible on extra small device
+		sm,md,lg,
+	hidden-xs:	Hidden on extra small device
+		sm,md,lg
+		
+	visible-*-block  display:block;
+	visible-*-inline display:inline;
+	visible-*-inline-block display:inline-block;
+	3.2.4 later
+	<div class="col-xs-12 hidden-print">...</div>
+	<div class="col-xs-12 visible-print">printer
+
+part-9 typography
+	<span class="h1">H1</span><span class="h2">H2</span>
+	<h1>main Heading 1 <small> Small Heading 1</small></1>
+	<h1>main Heading 1 <span class="small"> Small Heading 1</span></1>
+	
+part-10 paragraphs
+	text-left text-center text-right text-justify text-nowrap text-lowercase text-uppercase text-capitalize
+	lead
+	<abbr title="...">BBC</abbr>
+
+part-11 Bootstrap BlockQuotes and Lists
+	<blockquote class="blockquote-reverse">
+		<p>...</p>
+		<footer>...<cite title="..">...</cite></footer>
+	</blockquote>
+	
+	<ul class="list-inline"> one line
+	<ul class="list-unstyled">
+	<dl><dt><dd>
+	dl-horzontal
+part-12 Bootstrap List Group
+	<ul class="list-group">
+		<li class="list-group-item">
+		<li class="list-group-item">...<span class="badge">new</span</li>
+	ListGroup with hyperlinks
+	<ul class="list-grooup">
+		<a href="..." class="list-group-item">...</a>
+	list-group-item-danger,list-group-item-info,success,warning(color>
+
+	Highlight and disable list group items: Use .active and .disabled
+	<li class="list-group-item active>...</li>
+	<li class="list-group-item disable>...</li>
+
+	List group custom content
+	list-group-item
+	list-group-item-heading
+	list-group-item-text
+	<div class="list-group">
+		<a href=".." class="list-group-item">
+			<h4 class="list-group-item-heading>...</h4>
+			<p class="list-group-item-text>....</p>
+		</a>
+
+part-13 Bootstrap code blocks
+	<code> For styling inline snippets of code
+	<pre> For styling multiple lines of code
+	<var> For styling variables
+	<samp> for styling sample output
+	<kdb> for styling keyboard input
+	<code>&lt;mark&gt;</code>	
+<pre class="pre-scrollable">....</pre>
+	var <var>fullName</var>=<var>firstName</var>+<var>lastName</var>;
+	ctrl-K ctrl-c
+	<kbd>ctrl</kbd><kbd>k</kbd>
+
+part-14 Bootstrap Table classes
+	table		:For basic styling
+	table-striped 	:for striped table
+	table-borderd	:for table with borders on all sides of the table and cells
+	table-hover	:tTo highlight the row on hover
+	table-condensed To make tables more compact by cutting cell padding in half
+	table-responsive :makes table responsive by displing a horzontal scrollbar on small devices
+
+	<table class="table">...</table>
+	<table class="table-striped">...</table>one row one color
+	<div class="table-responsive">
+		<table class="..">
+			<tr class="active">
+			<tr class="danger">
+			<tr class="info">
+			<tr class="success">
+			<tr class="warning">
+			color
+		</table>
+	</div>
+
+part-15 button classes
+	<button class="btn">Button</button>
+	btn-default,primary,success,info,warning,danger,link
+	<a href=".." class="btn btn-primary">...</a>
+	btn-lg,btn-sm,btn-xs
+	btn-block:full size
+	<button class="btn btn-primary" disabled="disabled">...</button>
+
+part-16 Bootstrap ICON
+	<button><span class="glyphicon glyphicon-search"></span>Search</button>
+	color:
+		icon colour,size
+	<button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span>Search</button>
+
+	
+part-17 Bootstrap Dropdown
+	<div class="drodpdown">
+		<a class="dropdown-toggle" data-toggle="dropdown">
+			Dropdown <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="..."</li>
+			<li><a href="..."</li>
+			<li><a href="..."</li>
+			<li><a href="..."</li>
+		</ul>
+		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			Dropdown <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li class="dropdown-header"><strong>Hheader1</strong></li>
+			<li><a ...>...</a></li>
+	</div>
+	Menu Divider
+	<li class="divider></li>
+	Menu Item
+	<li class="disabled">...</li>
+	
+
+	<div class="dropup">up display
+
+part-18 Bootstrap button group
+	<div class="btn=toolbar">
+	<div class="btn-group">
+		<button ...>...</button>
+		<button...>...</button>
+		...
+	</div>
+	btn-group-lg,sm,xs
+
+	class="btn-group-vertical"
+	
+
+	<div class="btn-group">
+		<a href="..." class="btn btn-primary">Button 1</a>
+		...
+		<div class="btn-group">
+			<button data-toggle="dropdown"...>
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li>...</li>
+				...
+			</ul>	
+	<div>
+	btn-group-justified
+
+part 19 split button dropdown
+	
+	<div class="btn-group">
+		<button class="btn btn-primary">Sql Server</button>
+		<button class="btn btn-rpimary dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+		</button>
+		<ul class="dropodown-menu">
+			<li>><a ...>...</a></li>
+			...
+		</ul>
+	<div class="btn-group btn-group-xs">
+
+	
+part 22 Disabled and Readonly form controls
+	disable\readonly\form-control-static
+	<input disabled class="readonly" .../>
+
+
+part 23 Bootstrap form validation states
+	has-success,has-warning,has-error
+	<span class="help-block">strong Password</span>
+	<span class="glyphicon glyphicon-ok form-control-feedback>
+
+part 24 Bootstrap form controls height & width
+	Bootstrap Grid Classes
+	input-lg or input -sm
+	form-group-lg or form-group-sm
+	<label for="inputName" class="control-label col-xs-1">name</label>
+	<input class="form-control input -sm" type="text" id="inputName">
+
+part 25 Bootstrap Input Groups
+	<div class="input-group">
+		<span class="input-group-addon">$</span>
+		<input type="text" class="form-control" placeholder="..."/>
+		<span class="input-group-addon">.00</span>
+		<span class="glyphicon glyphicon-envelop" ></span>
+		
+		<span class="input-group-addon">
+			<input type="radio" />
+		</span>
+
+part 26 Bootstrap button in input group
+	<div class="input-group">
+		<span class="input-group-btn">
+			<button type="button" class="btn btn-default">search</button>
+		</span>
+
+part 27 Bootstrap nav component
+	nav nav-tabs
+	nav nav-pills
+	nav-stacked
+	nav-justified
+	disabled
+	active
+
+	<ul class="nav nav-tabs ">(nav-pills,nav-stacked,nav-justified)
+		<li class="active"><a href="#"><span class="glyphicon gllyphicon-home"></span> Home</a></li>
+		<li class="active"><a href="#">contact</a></li>
+		<li class="disable"><a href="#">About</a></li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown>
+			<span class="caret"></span>
+			<ul class="dropdown-menu">
+				<li><a href="..."></a></li>
+				.....
+			</ul>
+
+	</ul>
+
+
+part 28 Bootstrap Navbar component
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">HOME</a></li>
+				.....
+			</ul>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+				<input type="text" class="form-control" placeholder="search"/>
+				</div>
+			<button type="submit" class="btn btn-default">submit</button>
+		</div>
+	</nav>
+	
+
+
+	navbar-inverse,navbar-fixed-top,navbar-fixed-bottom
+
+part-33 Bootstrap labels and badges
+
+	<h4>c#<span class="label label-default"> Beginner</spin></h4>
+	label-primary,success,info,warning,dange
+	
+	<span class="badge">10</span> badge can also be used with other element 
+	<button class="btn btn-primary ><span class="badge">10</span>
+	
+part-34 Bootstrap progess bars
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped active" style="width:80%">
+			80%(1% displya 1%)
+		</div>
+	</div>
+	progress-bar-success,info,dange,warning,+progress-bar-striped
+	
+
+
+part-35 Bootstrap jumbotron
+	<div class="jumbotron">
+		<h1>Bootstrap Tuorial</h1>
+		<p>...</p>
+		<p><a class="btn btn-lg btn-primary" href="...">Get Start</a></p>
+		
+
+part-36 Bootstrap media object
+	<div class="media">
+		<div class="media-left">
+			<a href="#">
+				<image src="... " class="media-object" alt="...">	
+		</div>
+		<div class="media-body">
+	<h4 class="media-heading">tom<smail<i>july20,22,33</i><smail></h4>
+
+
+	media-list
+	<ul class="media-list">
+		<li class="media">....</li>
+		....
+	</ul>
+
+
+
+part-37 Bootstrap collapse plugin
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-default">
+			<div class="panel-heading>
+			<a class="btn btn-primary" href="#" data-toggle="collapse">
+			Toggle Image Gallery
+			</a>
+			</div>
+			<div class="panel-body collapse in">
+			...
+			</div>
+
+			<button class="btn btn-primary" href="#" data-target="imageGallery"  data-toggle="collapse">
+
+	collapse(toggle),collapse(show),collapse(hide)
+	show.bs.collapse,shown.bs.collapse,hide,bs.collapse,hidden.bs.collapse
+
+
+part-45 Bootstrap popover
+	<button class="btn btn-primary" id="btnPopover" title="Popover Title"
+		data-content="popover content. Popover content. "
+		data-toggle="tooltip(focus,hover)" data-html="true">Popover Example</button>
+
+
+part-46 Bootstrap Alert
+	alert-danger
+	alert-success
+	alert-info
+	alert-warning
+	<div class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong>....
+	</div>
+
+
+part-47 Bootstrap scrollspy
+	<body data-spy="scroll" data-target="#navid" data-offset="10">
+	
+
+
+part-48 Bootstrap scrollspy Vertical Menu
+	<div class="container">
+		<div class="row">
+		<div class="col-xs-3">
+			<nav id="mainNavbar">
+			
+
+
+part-49 Bootstrap affix plugin
+	data-spy="affix"
+	data-offset-top
+	<ul data-spy="affix" data-offset-top="200">
+
+
+part-50 Bootstrap image carousel
+	<div id="imageCarouusel" class="carousel slide" data-wrap="true" data-interval="2000" data-rade="carousel" >
+		<ol class="carousel-indictors">
+			<li data-toggle="#imageCarousel" dataslide-to="0" class="active"></li>
+			<li data-toggle="#imageCarousel" dataslide-to="1"></li>
+			<li data-toggle="#imageCarousel" dataslide-to="2"></li>
+			<li data-toggle="#imageCarousel" dataslide-to="3"></li>
+		<div class="carousel-inner active">
+			<div class="item">
+			<img src="....jpg" class="img-responsive"/>
+			<div class="carousel-caption">
+			<h3>Desert</h3>
+			<p>Beautiful desert</p>
+			</div>
+		<a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+		<span class=" glyphicon glyphicon-chevron-left">
+		<a href="#imageCarousel" class="carousel-control right" data-slide="prev">
+		<span class=" glyphicon glyphicon-chevron-right">
+
+
+part-51 Bootstrap multi column carousel
+	
+
+part-52
+
+	

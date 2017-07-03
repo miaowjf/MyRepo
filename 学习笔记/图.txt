@@ -1,0 +1,233 @@
+多个子图
+
+	FigureCanvas
+	fig=plt.figure()
+	Figure实例
+	可以添加Axes实例
+	
+	ax=fig.add_subplot(111)1,子图总行，1子图总列数，1子图位置
+
+
+	import matplotlib.pyplot as plt
+	import numpy as np
+	
+	x=np.arange(1,100)
+
+	fig=plt.figure()
+	
+	ax1=fig.add_subplot(221)
+	
+	ax1.plot(x,x)
+	
+	ax1.fig.add_subplot(222)
+	
+	ax1.plot(x,-x)
+
+	
+	plt.subplot(221)在交互操作时好用
+	plt.plot(x,x*x)
+
+
+生成多张图
+
+	可以创建多个Figure
+	import matplotlib.pyplot as plt
+	fig1=plt.figure()
+	ax1=fix.add_subplot(111)
+	ax1.plot([1,2,3],[3,2,1])
+
+	fig2=plt.figure()
+	ax2=fix.add_subplot(111)
+	ax2.plot([1,2,3],[3,2,1])
+	plt.show()
+
+网格的画法
+	
+	交互式
+	import matplotlib.pyplot as plt
+	import numpy as np
+	y=np.arange(1,5)
+	
+	plt.plot(y,y*2)
+	plt.grid(True)
+	plt.grid()
+	plt.grid(color='r',linewidth='2',linestyle='-'
+	面向对象的方式
+	import matplotlib.pyplot as plt
+	import numpy as np
+	x=np.arange(0,10,1)
+	fig=plt.figure()
+	ax=fig.add_subplot(111)
+	plt.plot(x,x*2)
+	ax.grid(color='g')
+	plt.show()
+	plt.show()
+
+图例的方法legend
+
+	三条线，每条线的名字在右上角显示，就是图例
+	交互方式
+	import matplotlib.pyplot as plt
+	import numpy as np
+	x=np.arange(1,11,1)
+	plt.plot(x,x*2,label='Normal')
+	plt.plot(x,*3,label='Fast')
+	plt.plot(x,x*4,label="faster')
+	plt.show()
+
+	plt.legend()
+	plt.legend(loc=0，[1，2，3，4到10的位置]，ncol=3[分几列显示label]）
+	plt.legend(['Normal',''Fast','Faster'])后定义label
+
+	面向对象
+	import matplotlib.pyplot as plt
+	import numpy as np
+	fig=plt.figure()
+	ax=fig.add_subplot(111)
+	l,=plt.plot(x,x)
+	ax.legend(['ax_legend'])或l.set_label('label vai method'),ax.legend();
+
+	
+	plt.show()
+
+坐标轴范围
+
+	import matplot.pyplot as plt
+	import numpy as np
+	x=np.arange(-10,11,1)
+	plt.plot(x,x*x)
+	plt.axis()显示坐标轴数组，（x最小，x最大，y最小，y最大）
+	plt.axis（[-5,5,20,60])
+	可以通过高速坐标轴查看关心的数据，比如某一区间的值
+	plt.xlim([-5,5])
+	plt.ylim([0,60])
+	plt.xlim(xmin=-10,xmax=10)
+	plt.xlim(xmin=5)调整一边
+
+坐标轴刻度
+	import matplotlib.pyplot as plt
+	import matplotlib as mpl
+	imprt numpy as np
+	x=np.arange(1,11,1)
+	ax=plt.plot(x,x)
+	ax=plt.gca()获取当前坐标轴
+	ax.locator_parmas(nbins=10[坐标轴总共有多少格])	
+	ax.locator_params('x',nbins=5)只调整x轴
+	
+	交互方式
+	plt.locator_params('x',nbins=5)
+
+	fig=plt.figure()
+	start=datetime.datetime(2015,1,1)
+	stop=dtaetime.datetime(2016,1,1)
+	delta=datetime.timedelta(days=1)
+	dates=mpl.dates.drange(start,stop,delta)
+
+	date_format=mpl.dates.DateFormatter('%Y-%m-%d')可以只用年和月
+	ax.xaxis.set_major_formatter(date_format)
+
+	y=np.random.rand(len(dates))
+	ax.plot_date(dates,y,linstyle='-',marker='')
+	fig.autofmt_xdate()自动调整日期角度显示，防止出现重叠
+
+添加新的坐标轴
+	
+	plt.show()
+
+	x=np.arange(0,20,1)
+	y1=x*x
+	y2=np.log(x)
+	plt.plot(x,y1)
+	plt.twinx()
+	plt.plot(x,y2,'r')
+
+	面向对象
+	fig=plt.figure()
+	ax1=fig.add_subplot(111)
+	ax1.plot(x,y)
+	ax1.set_ylabel('Y1')
+	ax2=ax1.twinx()#twiny,Y轴是一样的
+	ax2.plot(x,y2,'r')
+	ax2.set_ylabel('Y2')
+	ax1.set_xlabel('compare Y1 and Y2')
+	plt.show()
+
+
+注释：强调某一信息
+
+	import matplotlib.pyplot as plt
+	import numpy as np
+	x=np.arange(-10,11,1)
+	y=x*x
+	plt.plot(x,y)
+	plt.anotate('this is the bottom',xy=(0,1)[图形坐标],xytext=(0,20)[文字坐标],arrowprops=dict(facdcolor='r',frac=0.2[显示比例])，headwidth=10箭头宽度,width=10，箭身宽度)
+	
+
+文字：只显示文字没有图
+
+	import matplotlib.pyplot as plt
+	import numpy as np
+	x=np.arange(-10,11,1)
+	y=x*x
+	plt.plot(x,y)
+	
+	plt.text(0[x坐标],40[y坐标],'Function:y=x*x')
+	plt.text(10[x坐标],20[y坐标],'Function:y=x*x',family='serif'[字体],size=20字体大小，color='r',style='italic'斜体,weight=10字体粗细,bbox=dict(facecolor='r'，alpha=0.2)加边框)
+	plt.show()
+	plt.show()
+
+	
+TeX公式：
+	
+
+工具栏
+	放大看局部，调整大小等，便观察数据
+填充区域
+	fill,fill_between
+	plt.fill(x,y1,'b',alpha=0.3)
+	plt.fill(x,y2,'r',alpha=0.3)
+	
+	面向对象
+	fig=plt.figure()
+	ax=plt.gca()
+	ax.plot(x,y1,x,y2,color='black')
+	ax.fill_between(x,y1,y2,facecolor='blue',interoplate=Ture空白处自动填充)两条线之间的进行填充
+	ax.fill_between(x,y1,y2,where=y1>y2,facecolor='blue')y1大于y2填蓝色
+		ax.fill_between(x,y1,y2,where=y1<y2,facecolor='r')y1小于y2填绿色
+	plt.show()
+
+
+形状：
+	import matplotlib.patches as mpatches
+	fig,ax=plt.subplots()
+	xy1=np.array([0.2,0.2])
+	circle=mpatches.Circle(xy1,0.1)
+	ax.add_patch(circle)
+	rect=mpatches.Rectangle(xy2,0.2宽,0.1高)
+	ax.add_patch(rect)
+
+	polygon=mpatches.RegularPolygon(xy3,5条边,0.1半径[中心到顶点长度])
+	plt.axis('equal')
+
+
+极坐标：
+
+	以角度和半径进行画图
+	r=arange(1,6,1)
+	theta=[0,np.pi/2,np.pi,3*np.pi/2,2*np.pi]
+	ax.plt.subplot(111,projection='polar'投影为极坐标)
+	ax.plot(theta,r,color='r',linewidth=3)
+	ax.grid(True)
+	plt.show()
+
+	极坐标进行各收费站之间的关系出入的关系
+	可以进行入口数量，出口数量，收费额的关系图
+	客车，货车关系，客车分型，货车按吨位分型（根据这些数据对收费站进行细化管理，客货分道，提高某一类车的通行效率以提高整体通行效率）
+
+函数积分图：
+
+	plt.style.use('ggplot')使用这种风格
+	
+	
+	
+	

@@ -1,0 +1,313 @@
+pd.read_table("data/chipotle.tsv")
+pd.read_table("http://bit.ly/chiporders')
+pd.read_table('http://bit.ly/movieusers')
+
+user_cols=['user_id',....]
+pd.read_table('http://bit.ly/movieusers',sep=' ',header=None)header默认为第一行
+pd.read_table('http://bit.ly/movieusers',sep=' ',header=None,names=user_cols)header默认为第一行
+
+
+How do I select a pandas Series from DataFrame
+	ufo=pd.read_table('http://bit.ly/ufo.reports',sep=',') or read_csv("http://bit.ly/uforeports")
+
+ufo['column name',...,]
+ufo.columnName
+ufo.location=ufo.city+','+ufo.state
+ufo.head()
+
+
+How do i remove columns from a pandas DataFrame?
+	ufo.drop('Colors Reported',axis=1)
+	axis=0 is row
+	axis=1 is column
+	ufo.drop(['city','state'],axis=1,inplace=True)
+	ufo.drop([1,2],axis=0,inplace=True)
+
+How do I sort a pandas DataFrame or Series?
+	movies=pd.read_csv("http://bit.ly/imdbrating")
+	moies.title.sort_values()
+	movies['title'].sort_values(ascending=False)
+	movies.sort_values('title')
+
+How do i filter rows of a pandas DataFrame by columns value?
+	is_long=movies.duration>=200
+	movies[is_long]
+	movies[is_long>=200 ]
+	moview[is_ling>=200[.genre
+	movies[is_long>=200]['genre','city']显示genre,city两列
+	movies.loc[movies.durating>=200,'genre']
+
+HOw do I apply multiple filter criteria to a pandas DataFrame
+	movies=pd.read_csv('http://bit.ly/imdbratings')
+	movies.head()
+	movies[(movies.duration>=200) & (movies.genre=='Drama')]	
+	movies[(movies.duration>=200) | (movies.genre=='Drama')]
+	movies.genre.isin(['Crime','Drama'])
+
+How do I use the "axis" parameter in pandas
+	drinks=pd.read_csv('http://bit.ly/drinksbycounty')
+		
+How do I use string methods in pandas?
+	orders=pd.read_table('http://bit.ly/chiporders')
+	orders.head()
+	orders.item_name.str.upper()
+	orders.item_name.str.contains('Chicken')
+	试试正则表达式
+	orders.choice_description.sr.replace('[','').str.replace(']','')
+	order.choice_description.str.replace('[\[\]]','')
+
+How do I change the data type of a pandas Series?
+	drinks['beer_serving']=drinks.beer_servings.astype(float)
+	![](eli.pngJ)
+	drinks=pd.read.read_csv('...',dytpe={column_name:type,...})
+	orders=pd.read_table('http:..bit.oy/chiporders')
+	orders.item_price.str.replace('$',"").astype(float).mean()
+
+When should I use a "groupby" in pandas?
+	drinks=pd.read_csv('http://bit.ly/drinksbycountry')
+	drinks.groupby('column_name').beear_servings.mean()#,max(),min(),.agg()
+	drinks.groupby('column_name').beear_servings.agg(['count','min','max','mean'])
+	drinks.groupby('column_name').mean()
+	
+	%matplotlib inline
+	drinks.groupby('continent').mean().plot(kind='bar')
+
+How do I explore a pandas Series?
+	movies=pd.read_csv('http://bit.ly/imdbratings')
+	movies.head()
+	movies.dtypes
+	movies.genre.describe()
+	movies.genre.value_counts()
+	movies.genre.value_count(nomalize=True)
+	movies.genre.unique()
+	movies.genre.nunique()
+	pd.crosstab(movies.genre,movies.content_rating)?
+	movies.duration.describe()
+
+	%matplotlib inline
+	movies.duration.plot()kind='hist')
+	movies.genre.value_counts().plot(kind='bar')
+	
+
+
+How do I handle missing values in pandas?
+	ufo=pd.read_csv('http://bit.ly/uforeports')
+	ufo.tail()
+	ufo.isnull().tail()
+	ufo.notnull().tail()
+	ufo.isnull().sum()	
+
+	ufo[ufo.City.isnull()]
+	ufo.shape
+	ufo.dropna(how='any').shape
+	
+	ufo.dropna(how='all').shape
+	ufo.dropna(subset=['column_name',...],how='any').shape
+	ufo['Shape Reported'].value_counts(dropna=False)
+	ufo['Shape Reported'].fillna(value='Various',inplace=True)
+	
+
+What do I need to know about the pandas index?
+	drinks.coloums
+	drinks[drinks.continent=="south America']
+	drinks.loc[23,'beer_servings']行号,列名
+	drinks.set_index('countyr',inplace=True)
+	drinks.index
+	drinks.columns
+	drinks.loc['Brazil','beer_servings'],由于国家为索引,所以可以直接找到国家的所有信息
+	drinks.index.name=null
+	dring.index.name='country'
+	drinks.describe().loc['25%','beer_servings']
+	
+
+	drinks.set_index('country',inplace=True)
+	drinks.column_name.head()#column_namd=continent
+	drinks.continent.value_counts()
+	drinks.continent.vslue_counts()['Africa']
+	drinks.continent.value_contus().sort_values()#sort_index()
+	people=pd.series([3000,5000],index='Albania','androoa'],name='population')
+	drinks.beer_servings*people #将drinks和people中有相同index的值求乘法
+	pd.concat([drinks,people],axis=1).head() #通过index进行两个dataframe的连接
+
+How do I select multiple rows and colunms from a pandas DataFrame
+	ufo=pd.read_csv('http://bit.ly/uforeports')
+	ufo.loc[ 0,:] #loc根据行和列的“名字”来选择数据（第一行所有列）
+	ufo.loc[[0,1,2],:] #3行所有列
+	ufo.loc[0:2,:]
+	
+	ufo.loc[:,['city',''state']]
+	ufo.loc[ufo.City=='Oakland',:]
+	ufo.iloc[:,0，3]]根据索引“号”来选择数据
+	
+	ufo.iloc[0:3,:]
+
+	drinks.ix['Albania',0]
+	
+When should use the "inplace" parameter in pandas?
+	ufo=pd.read_csv('http://bit.ly/uforeports')
+	ufo.shape
+	ufo.head()
+	ufo.drop('City',axis=1).head()
+	ufo.head()# not change
+	ufo.drop('City',axis=1,inplace=True)
+	ufo.head()# It's changed
+	
+	ufo.dropna(how='nay',inplace=True)
+	ufo.set_index('Time',inplace=True)
+	ufo=ufo.set_index('Time')
+	ufo.fillna(method='ffill').tail()
+
+
+How do I make my pandas DataFrame smaller and fast
+	pbpython.com
+	
+	drinks.info(memory_usage='deep')
+	drinks.memory_usage()
+	brinks.memory_usage(deep=True)
+	drinks.memory_usage(deep=True).sum()
+	
+
+	sorted(drinks.continent.unique())
+	drinks.continent.head()
+
+	drinks['continent']=drinks.continent.astype('categort')
+	drinks.dtypes
+	drinks.continent.head()
+	drinks.continent.cat.codes.head()
+	
+	drinks.memory_usage(deep=True)
+	drinks['contry']=drinks.country.astype('category')# 对出入站号进行
+	drinks.country.cat.categories
+	
+
+	df=pd.DataFrame({'ID':[100,101,102,103],'quality':['good','very good','good','excellent']})
+	df.sort_values('quality')
+	df['quality']=df.quality.astype('category',categories=['good','very good','excellent'],ordered=True) category定义值顺序
+	df.quality
+	df.sort_values('quality')#还显示原来的值而不是category的值
+
+
+How do I use pandas with scikit-lean to create kaggle submissions?
+	train=pd.read_csv('http://bit.ly/kaggletrain')
+	feature_cols='['Pclass','Parch']
+	x=train.loc[:,feature_cols]
+	x.shape
+	y=train.Survived
+	y.shape
+	from sklearn.liner_model import LogisticRegression
+	logreg=LogisticRegression()
+	logreg.fix(x.y)
+	test=pd.read_csv('http://bit.ly/kaggletest')
+	test.head()
+	x_new=test.loc(:,feature_cols]
+	new_pred_class=logrge.predict(x_new)
+	new_pred_class
+	pd.DataFrame({PassengerId':test.PassengerId,'Survived':new_pred_class}).set_index('PassengerId').to_csv('sub.csv')
+	
+	
+
+More of you pandas questions ansered!
+	pd.isnull(ufo).head()
+
+	
+	ufo.sample(n=3,random_state=42)#抽样?
+
+	tran=ufo.sample(frac=0.75,random_state=99)
+	test=ufo.loc[~ufo.index.isin(tran.index),:]
+	
+
+How do I create dummy variables in pandas?
+	train=pd.read_csv('http://bit.lykaggletrain')
+	pd.get_dummies(...)
+
+
+How do I work with dates adn times in pandas?
+
+	ufo=pd.readcsv('http://bit.ly/uforeports')
+	ufo.Time.str.slice(-5,-3).astype(int)#take hour
+	ufo['Time']=pd.to_datatime(ufo.Time)
+	ufo.dtypes
+	ufo.Time.dt.hour #weekday_name,dayofyear(search .dt.)
+	ts=pd.to_datetime('1/1/1999')
+	ufo.loc[ufo.Time>=ts,:]
+	
+	ufo.Time.max()
+	(ufo.Time.max()-ufo.Time.min()).days#hours
+
+	%...
+	ufo.Year.value_counts().sort_index().plot()
+
+How do i find and remove duplicate rows in pandas?
+	users.zip_code.duplicated()
+	users.zip_code.duplicated().sum()
+	users.duplicated()
+	users.duplicated().sum()
+	users.loc[users.duplicated(),:]
+	duplicated(keep='first'),#last(最后1个重复的值),keep=False列出所有重复的值
+	usrs.drop_duplicates(keep='first').shape
+	users.duplicated(subset=['age,'zip-code']).sum()#age,zip-code一样的值
+
+How do i avoid a SettingWithCopyWarning in pandas?
+	movies.pd.read_csv('http://bit.ly/imdbrating')
+	movies.head()
+	movies.content_rating.isnull().sum()
+	movies[movies.content_rating.isnull()]
+	movies.content_rating.value_counts()
+	
+	movies[movies.content_rating=='NOT RATED']
+	top_movies=movies.loc[movies.star_rating>=9,:]
+	
+	top_movies.loc[0,'duration']=150
+	
+	top_movies=movies.loc[movies.star_rating>=9,:].copy()#拷贝后再修改
+
+How do I change display optins in pandas?
+	pandas.get_option
+	pd.get_option('display.max_rows')
+	pd.set_option('display.max_rows',None)#显示所有的行
+
+	pd.reset_option('display.max_rows')
+	pd.get_option('display.max_columns')
+	pd.get_option('display.max_colwidth')
+	pd.get_option('display.precision')
+
+	pd.set_option('display.float_format','{:,}}'.format)#数字逗号形式显示
+	pd.describe_option()
+	pd.describe_option('rows')
+	pd.reset_option('all)
+
+
+How do I create a pandas DataFrame from another object?
+	np.random.randint(60,100,10)
+	np.arange(100,110,1)
+	
+
+How do I apply a function to a pandas Series or DataFrame?
+	train['sex_num']=train.sex.map({'female':0,'male':1})#对female和male进行值映射
+	train['Name_length']=train.Name.apply(len)#对Name的值进行len函数返回
+	train['Fare_ceil']=train.Fare.apply(np.ceil)
+
+	train.Name.str.split(',').apply(lambda x:x[0])
+	apply(max,arix=1)求每行最大值
+	apply(np.argmax,axis=1)求每行最大值的列名
+	applymap(float)#将选择范围内的值变为float
+
+
+zip labda map
+
+	a=[1,2,3]
+	b=[4,5,6]
+	zip(a,b)
+	list(zip(a,b))
+	zip(a,a,b)
+	map(函数,列表1,列表2)#返回通过函数计算的列表
+
+Threading	
+	
+
+
+	
+	
+	
+	
+	
