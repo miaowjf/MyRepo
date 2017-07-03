@@ -7,6 +7,7 @@ lead_x=300
 lead_y=300
 gameDisplay=pygame.display.set_mode((800,600))
 
+pygame.key.set_repeat(10)//处理连续的事件，按键等
 pygame.display.set_caption("Hello")
 gameExit=False
 while not gameExit:
