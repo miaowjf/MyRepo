@@ -1,0 +1,30 @@
+django.shortcuts render_to_response
+render_to_response("模板",{字典})
+
+html模板：
+	{%if 变量 %}
+	{%else%}
+	{%endif%}
+
+	{% for book in 列表 %}
+	<li>{{book}}</li>S
+	{% endfor%}
+
+	{% for k,v in 字典.items %}
+	<li>{{(序号）forloop.counter}}:{{k}}:{{v}}</li>
+	{%endfor%}
+
+urlconfig(urls.py)
+	url(r'^blog/index/$','blog.views.index),
+	第一个是正则表达式，第二个是处理方法
+	（1.11中是三个参数，第二个是views.方法名，name='方法名')
+	也可以直接导入方法可以使用对象直接调用（url(r'^/index/$',index)index已经导入
+	patterns第一个空串为后面字符串的前缀，可以设定后对后面的前缀进行省略。
+URL传递参数
+	把url路径中的一部分做为参数（正则表达式的分组）
+	url(r'^blog/index/(?P<id>\d{2})/$','index'),(参数（?P<id>\d{2}）
+	def index(req,id) 引用 时用'id':id，（可以不起名子，（(\d{2}),接收时名字可以随便起）
+
+
+P14页
+	
