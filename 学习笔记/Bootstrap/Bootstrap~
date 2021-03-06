@@ -164,7 +164,7 @@ part-16 Bootstrap ICON
 	
 part-17 Bootstrap Dropdown
 	<div class="drodpdown">
-		<a class="dropdown-toggle" data-toggle="dropdown">data-toggle的dropdown是指上一层div的class里的dropdown
+		<a class="dropdown-toggle" data-toggle="dropdown">
 			Dropdown <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
@@ -465,4 +465,3 @@ font-awesome不是bootstrap自带的，需要自己加载
 
 	
 <kbd>ctrl</kbd>
-
