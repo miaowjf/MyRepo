@@ -1,0 +1,9 @@
+  hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+  hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+  set cursorline
+  set cursorcolumn
+
+**ctermbg=darkgray
+**删除ctermfg=white
+
+灰色强调当前行列，原字体还是原色
