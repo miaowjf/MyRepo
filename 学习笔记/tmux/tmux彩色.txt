@@ -1,0 +1,15 @@
+tmux 快捷操作
+-- 基本使用
+tmux   # 运行 tmux -2 以256终端运行
+C-b d  # 返回主 shell ， tmux 依旧在后台运行，里面的命令也保持运行状态
+tmux ls # 显示已有tmux会话（C-b s）
+tmux attach-session -t 数字 # 选择tmux
+tmux new-session -s session-name
+tmux kill-session -t session-name
+
+改变终端为256色
+can do this by exporting the TERM variable in your ~/.bashrc configuration file:
+export TERM=xterm-256color
+Save the file, and reload your settings:
+
+$ source ~/.bashrc
