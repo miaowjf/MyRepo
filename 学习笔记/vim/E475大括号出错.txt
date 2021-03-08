@@ -1,0 +1,2 @@
+ubuntu: /usr/share/vim/vim81/plugin/matchparen.vim
+117行let s_skip=0 改为let s_skip="0"

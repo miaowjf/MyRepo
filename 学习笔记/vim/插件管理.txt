@@ -1,0 +1,6 @@
+~/.vim/autoload中放插件pathogen.vim
+
+~/.vim/bundle中入下载的插件解压缩后的目录
+
+
+在/usr/share/vim/vim81/colors下放颜色插件
