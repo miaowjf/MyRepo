@@ -41,7 +41,7 @@ class='h1'...'h6'
 
 class='display-1'...'display-4'
 
-**small,mark,code,kbd**显示如下：
+**small,mark,code,kbd**显示如下：·
 
 <p>
     Normal text<small>   I am smart</small>
@@ -114,7 +114,7 @@ container,container-fluid**区别:**container在大到一定程度时会留边(*
             <p class='bg-warning'>
                 hello world
             </p>
-            <p class='bg-info'>
+            <p class='bg-info'>h
                 hello world
             </p>
         </div>
@@ -126,7 +126,7 @@ container,container-fluid**区别:**container在大到一定程度时会留边(*
 
 
 
-1. **d-flex**后两这**p标签**并列显示(J**一行排版**)
+1. **d-flex**后两这**p标签**并列显示(J**一行排版**)，**要加在col里才有用**
 
 2. **水平方向对齐**加**justify-content-start,justify-content-end,justify-content-center,justify-content-between,justify-content-around**:左、右、中间、两边，环绕（平均分配），左中右p标签之间不留空白
 
