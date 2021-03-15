@@ -57,3 +57,105 @@ build/ 忽略build目录下的文件
 
 
 
+**git add 文件名:**将修改的文件放到暂存区，使用git commit后修改的文件会保存到本地库
+
+**git reset HEAD [文件名]:**将提交到本地库的文件恢复到修改状态，没有[文件名]时是上次提交的文件全从本地库中恢复出来。
+
+git checkout 文件名：放弃修改
+
+git log 查看提交的版本
+
+##### 新版旧版不同开始
+
+git restore --staged<file>:变为unstage状态（后面就没有一直是reset**??**)，老版本是checkout --文件名,**后来的是restore**(原来是checkout)
+
+git restore  文件名
+
+暂存区后撤消，用git restore 文件名（新，原来也是git rest HEAD)
+
+##### 新版旧版不同结束
+
+git diff查看文件的不同
+
+git reset --hard HEAD^：退回到上一个版本。^两个就是回退2个版本
+
+git reset --hard 版本号：前进（回退）到指定版本（前几位就可以一般6位就可以）
+
+git reflog 查看切换过程，可以丁查看从哪个版本切换到哪个版本
+
+# 文件删除
+
+rm 文件名
+
+git status
+
+git add/rm 文件名
+
+git status 
+
+可以恢复文件，git restore 老版本 git reseet 改变提交
+
+# 远程提交
+
+git remote add origin **url**
+
+git push -u origin master
+
+以后可以直接 git push
+
+git clone **url** 拷贝
+
+git remote add origin **url**
+
+git pull 更新文件
+
+# 分支
+
+git checkout -b dev ：创建dev分支，并切换到dev分支
+
+ git branch 分支名 （创建分支，与上一条一样，**但不切换到创建的分支**）
+
+新版用git checkout 分支名
+
+在主分支里，git merge dev 将dev分支合并到master
+
+git brancd -D 分支名
+
+##### 有矛盾如何合并
+
+在主分支和其它分支上修改同一个文件，并提交后，切换到master 执行
+
+git merge dev 
+
+打开冲突的文件，进行修改后，git status会显示文件已修改，用git add .来确认修改commit后就解决了冲突
+
+#### bug处理
+
+保存当前状态，切换到分支去操作。
+
+git stash 保存当前状态
+
+git checkout -b bug 
+
+进行修改
+
+git add .
+
+git commit -m 'modify bug'
+
+git checkout master 返回master
+
+git merge bug 合并分支
+
+git stash list 查看状态列表
+
+git stash apply
+
+git stash apply stash@{0...n} 多个状态的情况下进行恢复。
+
+
+
+
+
+
+
