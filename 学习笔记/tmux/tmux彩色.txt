@@ -7,9 +7,21 @@ tmux attach-session -t 数字 # 选择tmux
 tmux new-session -s session-name
 tmux kill-session -t session-name
 
+
+
+
+
 改变终端为256色
 can do this by exporting the TERM variable in your ~/.bashrc configuration file:
 export TERM=xterm-256color
 Save the file, and reload your settings:
 
 $ source ~/.bashrc
+
+.tmux.conf加入以下代码
+
+set -g default-terminal "screen-256color"
+set-option -ga terminal-overrides ",*256col*:Tc"
+
+有时下面这句有用
+set-option -sa terminal-overrides ",xterm*:Tc"

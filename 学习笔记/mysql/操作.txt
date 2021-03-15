@@ -1,0 +1,7 @@
+create user 'gsc' identified by 'gAsc-7a7_'
+create database test
+grant all privileges *.* to gsc
+
+flush privileges;
+
+$mysql -u gsc -p
