@@ -6,4 +6,4 @@ git config --global i18n.logoutputencoding utf-8
 
 设置系统变量 LESSCHARSET=utf-8
 linux: 编辑 /etc/profile export LESSCHARSET=utf-8
-
+不能用时，重启动一下电脑

@@ -1,19 +1,36 @@
 学习练习在g:\gitStudy目录下
 
+# 查看和配置相关信息
+
 git config -l 查看git配置清单
 
 git config --system --list 查看系统配置的清单
 
 git config --global --list 查看本地的配置
 
-git config --global user.name="miaowjf" 设置用户名
+git config --global user.name "miaowjf" 设置用户名
 
 git config --global user.email wwjf@sina.com 设置邮箱
 
-所有的配置文件，其实都保存在本地
+git config --local --list
+
+
+
+#### 所有的配置文件，其实都保存在本地
 
 1. git\etc\gitconfig:git安装目录下的gitconfig --system系统级
 2. 用户的配置：用户目录下\.gitconfig --global全局的配置
+3. 本地配置：.git中 --local
+
+#### 删除一个配置项
+
+git config [--global --local --system] --unset  配置名
+
+#### 使用指定的配置文件
+
+git config --file <文件名>
+
+# 初始化工作
 
 #### 初始化一个仓库
 
