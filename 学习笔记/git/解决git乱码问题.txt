@@ -1,0 +1,9 @@
+git config --global core.quotepath false
+git config --global gui.encoding utf-8
+
+git config --global i18n.commit.encoding utf-8
+git config --global i18n.logoutputencoding utf-8
+
+设置系统变量 LESSCHARSET=utf-8
+linux: 编辑 /etc/profile export LESSCHARSET=utf-8
+
