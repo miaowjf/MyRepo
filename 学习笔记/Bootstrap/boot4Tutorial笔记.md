@@ -9,13 +9,13 @@
 </p>
 ```
 
-**注意：**h1所在的位置可能不能占整个1行，可以通过 **col-md-12**等方法来独占1行,**或用类container**
+**注意：** h1所在的位置可能不能占整个1行，可以通过 **col-md-12**等方法来独占1行,**或用类container**
 
-**文本颜色：**text-info，text-warning,text-success,text-secondary,text-black-50,text-light,text-white-20,text-muted
+**文本颜色：** text-info，text-warning,text-success,text-secondary,text-black-50,text-light,text-white-20,text-muted
 
-**每个单词第一个字母大写:**text-capitalize
+**每个单词第一个字母大写:** text-capitalize
 
-**背景：**bg-dark,bg-danger,bg-success,bg-info,bg-info,bg-warning,bg-secondary
+**背景：** bg-dark,bg-danger,bg-success,bg-info,bg-info,bg-warning,bg-secondary
 
 # Typography(排版)
 
