@@ -79,3 +79,5 @@ w
 Move cursor forward one word at a time
 
 b
+
+https://github.com/maxmellon/vim-jsx-pretty
