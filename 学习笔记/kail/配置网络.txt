@@ -1,0 +1,35 @@
+apt update#检查更新
+apt upgrade#开始更新
+
+ifconfig eth0 192.168.1.53/24 #临时配置IP
+route add default gw 192.168.1.1 #配置默认路由
+echo nameserver 8.8.8.8>/etc/resolv.conf#配置DNS服务器
+
+#永久配置IP
+/etc/resole.conf#配置DNS
+/etc/network/interfaces
+#iface eth0 inet dhcp #自动获取IP地址注释掉
+iface eht0 inet static #使用静态地址
+address 192.168.1.53
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+
+#重启网络服务
+/etc/init.d/network restart
+systemctl restart networking
+systemctl restart networking.service(3个都行,最后一个多写了service)
+#配置sshd,/etc/ssh/sshd_config文件
+PermiRootLogin yes
+PubkeyAuthentication yes
+
+/etc/init.d/ssh restart 或 systemctl restart ssh
+
+update-rc.d ssh enable 开机启动ssh 或 systemctl enable ssh
+
+
+
+
+
+
+
