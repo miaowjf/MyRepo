@@ -55,22 +55,51 @@
           print(request.base_url)
           print(request.url)
           print(request.full_path)#表单使用
+          print(request.method)
+          if request.method=='POST':
+        username=request.form.get('name')
+              username=request.form.get('address')
+              
           return ...
       ```
-
+      
       ```html
       <form action="" method="get">
           
           <p>
-              <input type="text" placeholder="姓名"/>
-              <input type="text" placeholder="地址"/>
+              <input name='name' type="text" placeholder="姓名"/>
+        <input name='address' type="text" placeholder="地址"/>
               <input type="submit" placeholder="提交"/>
-          </p>
+       </p>
       </form>
-      ```
-
+   ```
       
-
+      app.url_map，显示所有路由规则
    
-
+   **render_template('模板文件')**
+   
+   ```python
+   args是一个字典
+   request.args.get('name')#就可以得到所需要的值
+   request.args.get('address')
+   ```
+   
+   注意事项：表单的方法为**post**时：
+   
+   ```python
+   @app.route('/register2',methods=['GET','POST'])
+   def register2():
+       print(app.url_map)
+       print(request.form)
+       print(request.form.get('name'))
+       print(request.form.get('address'))
+       return '进来了'
+   ```
+   
+   
+   
+   
+   
+   
+   
    
