@@ -1,0 +1,118 @@
+# flask-script
+
+提供脚本执行，在命令行中执行，完成更丰富的功能。
+
+```shell
+pip3 install flask-script
+```
+
+flask-script 工作依赖一个Manager实例，要导入这个实例
+
+```python
+#在app.py在导入
+from flask_script import Manager
+from apps import create_app
+
+app=create_app()
+manager=Manager(app=app)#使用app
+
+@manager.command
+def init():
+    print('初始化')#定义自己的命令行参数
+
+if __name__=='__main__':
+    manager.run()#代替app.run()
+#启动时要使用 python app.py runserver (或shell) 
+#python app.py runserver -h 0.0.0.0 -p 5001
+python app.py init #就可以执行那个函数
+```
+
+# 数据库
+
+```shell
+pip3 install flask-sqlalchemy
+pip3 install pymysql
+pip3 install flask-migrate#实现映射的工具
+```
+
+### flask-sqlalchemy
+
+```python
+#settings.py
+class Config:
+    DEBUG=True
+    SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@127.0.0.0:3306/users'#数据库+驱动是什么://用户名:密码@主机地址:端口号/数据库名
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO=True#调试设置为true
+    SQLALCHEMY_POOL_SIZE=5#默认值为5
+
+class DevelopmentConfig(Config):
+    ENV='development'
+class ProductionConfig(Config):
+    ENV='production'
+    DEBUG=False
+    
+    
+```
+
+```python
+在create_app中加入
+app.config.from_object(settings.DevelopmentConfig)
+```
+
+在主目录下建ext扩展包
+
+```python
+#__init__.py
+from flask_sqlalchemy import SQLAlchemy
+db=SQLAlchmey()
+
+
+#app.py中
+from ext import db
+...原来的app=create_app()
+db.init_app(app)#将db对象与app进行关联
+```
+
+<font size=5>**步骤**</font>
+
+1. 配置数据库的连接路径
+
+   #mysql+pymysql://username:password@host:port/databasename？charset-utf-8
+
+   SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root/127.0.0.1:3306/flaskday05?字符集'
+
+2. 创建包ext
+
+   __ init__.py中添加
+
+   db=SQLAlchemy() <font color=red>必须跟app联系</font>
+
+   def create_app():
+
+   ...
+
+   db.init_app(app)
+
+   return app
+
+3. migrate
+
+   把migrate中的命令加到Manager中管理，影响app中映射的关系
+
+   ```python
+   #app.py中
+   from apps import create_app
+   from flask_manager import Manager
+   from flask_migrate import migrate,MigrateCommand
+   from ext import db
+   
+   app=create_app()
+   manager=Manager(app=app)
+   migrate=Migrate(app=app,db=db)#flask_migrate与app进行联系
+   manager.add_command('dbabc',MigrateCommand)#或装饰器@manager.command,使用db做为参数，MigrateCommand是一个对象（flask_migrate与manager联系）
+   #在shell中运行   python app.py dbabc --help db下可使用的命令
+   ```
+
+   #05-03-27:00
+

@@ -19,7 +19,7 @@ if __name__=='__main__' :
 
 安装完**flask**后，直接创建app.py，使用python app.py 就可以执行
 
-app.run(host='0.0.0.0',port=8080)**注意事项**  ：需要将系统的端口打开，sudo ufw allow 8080
+app.run(host='0.0.0.0',port=8080)**注意事项**  ：***需要将系统的端口打开，sudo ufw allow 8080***
 
 使用配置文件
 
