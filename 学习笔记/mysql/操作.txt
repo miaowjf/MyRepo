@@ -5,3 +5,5 @@ grant all privileges *.* to gsc
 flush privileges;
 
 $mysql -u gsc -p
+
+alter 'gsc'@'%' identified by 'ÃÜÂë'
