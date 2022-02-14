@@ -3,6 +3,21 @@ ctrl+b : new -s 会话名称  新建一个会话
 ctrl+b $ 命名session
 ctrl+b ( 上一个session
 ctrl+b )下一个session
+tmux kill-server　　关闭所有会话
+tmux ls　　显示会话列表
+
+tmux a　　连接上一个会话
+
+tmux a -t mysession　　连接指定会话
+
+tmux rename -t s1 s2　　重命名会话s1为s2
+
+tmux kill-session　　关闭上次打开的会话
+
+tmux kill-session -t s1　　关闭会话s1
+
+tmux kill-session -a -t s1　　关闭除s1外的所有会话
+
 
 
 窗格操作：
