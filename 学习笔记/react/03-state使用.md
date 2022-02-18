@@ -221,4 +221,115 @@ export default class App extends React.Component{
 }
 ```
 
-P14视频
+```javascript
+#条件运算符
+条件?真时显示:假时显示
+条件 && 显示内容 #当条件为真时显示后面的内容，短路显示
+#dangerouslySetInnerHTML将字符串渲染显示
+const data='<h1>hello</h1>'
+<div dangerouslySetInnerHTML={{__html:data}}></div> #显示渲染后的data
+<label htmlFor='id号' >abc <inpout type='text' id='id号'/></label> #点广本后，焦点进入id号的控件
+
+#函数组件
+const Home=()=>{
+    return <div>home</div>
+}
+```
+
+## 五、事件处理
+
+```javascript
+#事件绑定
+import React from 'react'
+
+export default class App extends React.Component{
+    state={
+        count:0
+    }
+    handleClick(){
+        console.log(this.state.count) #拿不到this,es6类里的函数访问不到this，需要绑定
+    }
+    render(){
+        return(
+        <div onClick={this.handleClick}>Event</div> #jsx模板能访问到this，解析模板时会把上下文this对象绑定。
+        <div onClick={this.handleClick.bind(this)}>Event</div> #绑定就可以，每次bind都会创建一个（每点击一次创建一个），性能差，其它方法可心绑定一次，不推荐这种方法。
+        </div>
+        )
+    }
+}
+```
+
+```javascript
+#事件绑定一次，推荐这种方法
+import React from 'react'
+
+export default class App extends React.Component{
+    Constructor(props){
+        super(props)
+        this.handleClick=this.handleClick.bind(this)#这进而进行一次绑定，必须有上面的super，推荐这种方法
+    }
+    state={
+        count:0
+    }
+    handleCanShuClick(args){
+        console.log(args)
+    }
+    handleClick(){
+        console.log(this.state.count) #绑定后可以拿到this
+    }
+    render(){
+        return(
+            <>
+            <div onClick={this.handleClick}>Event</div> #可以使用
+            <div onClick={()=>this.handleCanShuClick('abcd')}</div>  #使用回调函数传递参数
+            </>
+
+        )
+    }
+}
+```
+
+```javascript
+#事件柯里化
+import React from 'react'
+
+export default class App extends React.Component{
+    Constructor(props){
+        super(props)
+        this.handleClick=this.handleClick.bind(this)#这进而进行一次绑定，必须有上面的super
+    }
+    state={
+        count:0
+    }
+    #下面函数是柯里化 
+    handleClick=(args)=>{
+        return()=>{
+            console.log(args)
+        }
+     }
+    render(){
+        return(
+            <>
+               <div onClick={this.handleClick('abc')}</div>  #柯里化的函数可以直接调用，返回一个函数给onClick
+            </>
+
+        )
+    }
+}
+```
+
+ ### 绑定事件
+
+采用<font color=red>on+**事件名**</font>的方法绑定一个事件。javascript原生的事件全是小写onclick，React里的事件是驼峰onClick，React的事件不是原生事件，而是合成事件。
+
+### 事件handler的写法
+
+- 直接在render里写行内的箭头函数（不推荐）
+- 在组件内使用一个箭头函数定义一个方法（推荐）
+- 直接在组件内定义一个非箭头函数的，然后在render里直接使用onClick={this.handleClick.bind(this)}(不推荐)
+- 直接在组件内定义一个非箭头函数的方法，然后在constructor里bind(this）（推荐）
+
+
+
+
+
