@@ -329,6 +329,14 @@ export default class App extends React.Component{
 - 直接在组件内定义一个非箭头函数的，然后在render里直接使用onClick={this.handleClick.bind(this)}(不推荐)
 - 直接在组件内定义一个非箭头函数的方法，然后在constructor里bind(this）（推荐）
 
+**注意：**
+
+- 组件中的**render**方法中的**this**为<font color=red>组件实例对象</font>
+- 组件<font color=red>自定义方法</font>中的<font color=yellow>this</font>为<font color=red>undefined</font>如果要在组件中使用要进行绑定
+  + 强制绑定this，通过函数对象的bind（）：在类的constructoer方法中使用<font color=red>this.方法名=this.方法名.bind(this)</font>
+  + 使用箭头函数定义一个属性：<font color=red>handleClick=()=>{......}</font>
+  + 在组件中使用箭头函数：<button onClick={()=>this.setState(prevState=>{count:prevState.count+1})}
+
 
 
 

@@ -101,7 +101,7 @@ Child.defaultProps={
 }
 ```
 
-## 三、props-types检查
+## 三、props-types检查、默认值
 
 ```javascript
 import React from 'react'
@@ -111,14 +111,22 @@ class MyComponent extends React.Component{
     static propTypes={
         title:PropTypes.string
     }
+    static defaultProps{
+        sex:'男',
+        age:18
+    }
     render(){
         return ...
     }
 }
-MyComponent.propTypes={#声明了一个属性，和在类里面定义一样
+MyComponent.propTypes={#声明了属性，和在类里面定义一样。在函数组件中只能使用这种方式
     optionalArray:PropTypes.array,
     opti0onalBool:PropTypes.bool,
     ....
+}
+MyComponent.defaultPorps={#使用默认值，和在类里面定义一样。在函数组件中只能使用这种方式
+    sex:'男',
+    age:18
 }
     
 ```
