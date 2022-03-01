@@ -1,0 +1,17 @@
+{
+    "vim.easymotion": true,
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "vim.leader": ",",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<esc>"
+            ]
+        }
+    ],
+    "emmet.triggerExpansionOnTab": true
+}
