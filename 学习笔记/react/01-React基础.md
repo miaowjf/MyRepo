@@ -146,5 +146,21 @@ export default class App extends Component{
 #上面的javascript就是虚拟DOM，只渲染改变的部分，速度快。可以通过属性快速更改相关内容。
 ```
 
+## 四、函数组件注意
+
+定义用法：
+
+```javascript
+#第一种方法
+function 组件名(){//组件名第一个字母大写
+    ...
+}
+export default 组件名
+#第二种方法
+export default ()=>{ //没有组件名直接暴露
+    ...
+}
+```
+
 
 
