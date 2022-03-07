@@ -1,0 +1,4 @@
+在根目录新建一个.env.production文件，里面写上GENERATE_SOURCEMAP=false，这是最不具破坏性的。
+环境变量是个好东西！
+
+此目录中有文件

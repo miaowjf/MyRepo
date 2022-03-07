@@ -71,7 +71,7 @@ export defalut (porps)=>{
 
 props，是由组件直接带来的，不定义也能使用。
 
-<font color=red>class中使用时，要带this。箭头函数中使用时，不带this</font>
+<font color=red>class中使用时，要带this</font>。<font color=yellow>箭头函数中使用时，不带this</font>
 
 类的静态属性：
 

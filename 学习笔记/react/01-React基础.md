@@ -63,6 +63,8 @@ ReactDOM.render(<App title='!!!' name='world'/>,getElementById('root'))
 
 const app=()=>{}的资料要仔细看。函数的使用。<font color=red>箭头函数</font>:更简短的函数并且不绑定this。
 
+<font color=red>函数组件</font>的<font color=yellow>props</font>是不用<font color=yellow>this</font>来进行绑定使用的。在函数组件中直接使用<font color=red>props.属性名</font>直接使用。
+
 **没有单独的this**
 
 在箭头函数出现之前，每一个新函数根据它是被如何调用的来定义这个函数的this值：
