@@ -13,6 +13,45 @@ class User(BaseModel):
 #实例化将执行所有解析和验证，如果有错误则会触发ValidationError
 user=User(id='123')
 ```
+类要继承自<font color=yellow>BaseModel</font>,使用时<font color=yellow>冒号（:）</font>后面是数据类型，<font color=yellow>等号（=）</font>后面是预设值
+```python
+class Order(BaseModel):
+    id:int
+    name="lisi"
+    name:Option[str]=None #使用Option是可填可不填的意思，None是默认值,有输入的话就是字符串
+    items:List[str]#items的值是一个字符串列表
+```
+**<font color=red>ORM</font>的应用**:
+将orm model导入到pydantic的model中，比如sqlalchemy
+```python
+class Item(BAseModel):
+    name:str
+    price:int
+    class Config:
+        orm_mode=True
+        #针对没有列在model的key-value有forbid/ignore/allow三种方法处理。
+        extra="forbid" #forbid报错、ignore忽略不讲、allow导入
+
+#Validator检查变量是否符合规则
+class Model(BaseModel):
+    foo:str
+    @validator('foo')
+    def value_must_equal_bar(cls,v):
+        if v!='bar':
+            raise ValueError('value muse be "bar"')
+        return v
+
+
+#Field提供更详细的说明给，增加Fastswagger内容
+class Model(BaseModel):
+    #name:str=Field(...,title="model title",description="model is good",default='abc')
+    #不能有上句注释里的...那样的话必须在创建实例时指定name值才行。
+    name:str=Field(title="model title",description="model is good",default='abc')
+
+    #使用函数返回值做为默认值default_factory
+    up_date:datetime=Field(title="更新时间",default_factory=datetime.now)
+```
+
 上面的例子中，id是一个整数并且<font color=red>是必须的</font>,nam是一个带有默认值的字符串并不是必需的。
 
 **模型具有以下属性：**
