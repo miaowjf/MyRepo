@@ -23,7 +23,6 @@ class UserIn(BaseModel):
 
 class UserOut(BaseModel):
     username:str
-    password:str
     email:EmailStr
     mobile:str="10086"
     address:str=None
@@ -41,7 +40,9 @@ async def response_model(user:UserIn):
     print(user.password)
     #下面只返回username和email。其它的是password和有默认值，因此不回传。如果unset设为False,会有mobile传回
     return  user["user01"],user["user02"]
-
+```
+上面定义了<font color=red>两个Pydantic模型(UserIn,UserOut)</font>，一个为<font color=red>请求体模型</font>，另一个则是<font color=red>响应体模型</font>。<font color=red>响应体模型</font>在<font color=yellow>路径操作</font>中进行声明，所以<font color=yellow>响应体数据会经过这个模型校验</font>，<font color=red>返回的数据</font>是符合这个<font color=yellow>模型的数据</font>。显然响应体模型<font color=yellow>过滤掉了password字段</font>。
+```python
 @app04.post(
     "/response_model/attributes",
     response_model=Union[UserIn,UserOut]
