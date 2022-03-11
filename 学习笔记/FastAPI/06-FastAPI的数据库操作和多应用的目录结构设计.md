@@ -22,7 +22,7 @@ SQLALCHEMY_DATABASE_URL='sql///./coronvirus.sqlite'
 #SQLALCHEMY_DATABASE_URL='postgresql://username:password@host:port/database_name  mysql和postgresql的连接方式
 
 engin=create_engine(
-    SQLCHEMY_DATABASE_URL
+    SQLALCHEMY_DATABASE_URL,
     encoding='utf-8',
     #echo引擎将用repl函数记录所有的语句和参数列表到日志里。
     echo=True,
@@ -56,8 +56,8 @@ class City(Base):
     country_population=Column(BigInteger,nullable=False,comment="国家人口")
     #'Data'是关联的类名；back_populates来指定反向访问的属性名
     data=relationship('Data',back_populates='city')
-    create_at=Column(DateTime,server_default=func.now(),comment='创建时间')
-    update_at=Column(DateTime,server_default=func.now(),onupdate=func.now(),comment='更新时间')
+    created_at=Column(DateTime,server_default=func.now(),comment='创建时间')
+    updated_at=Column(DateTime,server_default=func.now(),onupdate=func.now(),comment='更新时间')
 
     #排序默认是正序，倒序加上.desc()方法。
     __mapper_args__={"order_by":country_code.desc()}
@@ -83,7 +83,7 @@ class Data(Base):
     __mapper_args__={"order_by":country_code.desc()}
     def __repr__(self,):
         #repr将日期格式可读
-        return f'{repr(self.date)}:确诊{self.province}例。'
+        return f'{repr(self.date)}:确诊{self.confiremed}例。'
 ```
 
 ## 三、pydantic建立与模型类对应的数据格式类
@@ -104,13 +104,13 @@ class CreateCity(BaseModel):
     province:str
     country:str
     country_code:str
-    country_population;int
+    country_population:int
 
 class ReadData(CreateData):
     id:int
     city_id:int
     updated_at:datetime
-    create_at:datetime
+    created_at:datetime
     class Config:
         #从模型类的实例里创建数据
         orm_mode=True
@@ -118,7 +118,7 @@ class ReadData(CreateData):
 class ReadCity(CreateCity):
     id:int
     updated_at:datetime
-    create_at:datetime
+    created_at:datetime
     class Config:
         orm_mode=True
 ```
@@ -151,11 +151,11 @@ def create_city(db:Session,city:schemas.CreateCity):
 def get_data(db:Session,city:str=None,skip:int=0,limit:int=10):
     if city:
         #外键关联查询，这里不像DjangoORM那样Data.city.province得到数据，需要models.Data.city.has(province=city)查询得到。
-        return db.query(models.Data)filter(models.Data.city.has(province=city))
+        return db.query(models.Data).join(models.City).filter(models.City.province==city).all()
     return db.query(models.Data).offset(skip).limit(limit).all()
 
 def create_city_data(db:Session,data:schemas.CreateData,city_id:int):
-    db_data=models.Data(**data.dict(),city_id=citr_id)
+    db_data=models.Data(**data.dict(),city_id=city_id)
     db.add(db_data)
     db.commit()
     db.refresh(db_data)
@@ -171,7 +171,7 @@ from fastapi import APIRouter,Depends,HTTPException,status
 from sqlalchemy.orm import Session
 from coronavirus import crud,schemas
 from coronavirus.database import engine,Base,SessionLocal
-from coronavirus.models import City.Data
+from coronavirus.models import City,Data
 from typing import List
 
 application=APIRouter()
@@ -206,13 +206,13 @@ def get_city(city:str,db:Session=Depends(get_db)):
         )
     return db_city
 
-@application.get('/getcitys',response_model=List[schemas,ReadCity])
+@application.get('/getcitys',response_model=List[schemas.ReadCity])
 def get_cities(skip:int=0,limit:int=100,db:Session=Depends(get_db)):
     cities=crud.get_cities(db=db,skip=skip,limit=limit)
     return cities
 
 @application.post('/create_data',response_model=schemas.ReadData)
-def create_data_for_city(cityo:str,data:schemas.CreateData,db:Session=Depends(get_db)):
+def create_data_for_city(city:str,data:schemas.CreateData,db:Session=Depends(get_db)):
     db_city=crud.get_city_by_name(db=db,name=city)
     data=crud.create_city_data(db=db,data=data,city_id=db_city.id)
     return data

@@ -8,6 +8,7 @@
 - 增强安全、认证和角色管理
 
 **提高FastAPI的兼容性**
+
 - 所有的关系型数据库，支撑NoSQL数据库
 - 第三方的包和API
 - 认证和授权系统
@@ -54,13 +55,13 @@ async def classes_as_dependencies(commons:CommonQueryParams=Depends(CommonQueryP
         response.update("q":commons.q)
     items=fake_items_db[commons.page:commons.page+commons.limit]
     response.update({"items":items})
-    return 
+    return response
 # async def classes_as_dependencies(comons:CommonQueryParams=Depends())
 # async def classes_as_dependencies(comons=Depends(CommonQueryParams))
 #后面两个定义与第一个功能一样
 ```
-类的__init__参数列表来传参数
-请求数据将会传递到类的初始化方法中(__init__)
+类的__ init __参数列表来传参数
+请求数据将会传递到类的初始化方法中(  __ init__)
 
 
 ## 四、子依赖的创建和调用
