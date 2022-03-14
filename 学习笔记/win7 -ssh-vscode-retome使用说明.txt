@@ -1,0 +1,10 @@
+解决这个问题在于安装openssh，win 10是自动安装了的，而win 7是没有安装的，所以需要我们手动安装。过程如下：
+这个问题找了很久，尝试了很多方法，最后发现下面这个方法亲试可行，
+过程 参考这篇文章：install openssh on windows 7
+按照文章里的步骤完全可以完成,我就不一一翻译了，因为内容其实很简单。
+这里说一下可能遇到的问题
+
+    1，powershell是在win 7开始里面输入（或者按键盘里面的win键）powershell之后通过管理员身份打开
+2 运行.\ssh-keygen.exe -A的时候提示如下错误，可以在C:\ProgramData下建一个名为ssh的文件夹，然后再次运行即可
+3 bad owner or permissions on C:\users\lenovo/.ssh/config 这个问题是最烦的，一开始遇到的就是这个问题，结果发现，这个问题很可能是下载的文件解压之后出现了错误。所以解决办法是重新下载Openssh，然后解压到C:\Program Files下，并将文件夹命名为OpenSSH,如果无法解压，用解压器打开直接复制里面的文件也可以，一定要放在OpenSSH里面，然后的步骤就是按照一开始提供的那个文章进行即可。
+4 完成之后vscode要重启才能使用
