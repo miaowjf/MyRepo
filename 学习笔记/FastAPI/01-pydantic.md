@@ -42,7 +42,7 @@ class Model(BaseModel):
         return v
 
 
-#Field提供更详细的说明给，增加Fastswagger内容
+#Field提供更详细的说明给docs中使用，在请示函数的参数会显示在docs的下面让调用者参考，增加Fastswagger内容
 class Model(BaseModel):
     #name:str=Field(...,title="model title",description="model is good",default='abc')
     #不能有上句注释里的...那样的话必须在创建实例时指定name值才行。
