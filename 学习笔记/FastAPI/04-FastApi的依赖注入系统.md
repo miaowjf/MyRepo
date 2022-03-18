@@ -93,15 +93,15 @@ async def verify_token(x_token:str=Header(...)):
     return x_token
 
 
-async def verify_key(x_:str=Header(...)):
+async def verify_key(x_key:str=Header(...)):
     #有返回值的子依赖,但返回值不会被调用
     if x_key !="fask-super-secret-key":
         raise HTTPException(status_code=400,detail="X-key header invalid")
-    return x_token
+    return x_key
 
 @app05.get('/dependency+in_path_operation',dependencies=[Depends(verify_koken),Depends(verify_key)])
 asyn def dependency_in_path_operation():
-return ["user":"user01"},{"user":"user02"}]
+return [{"user":"user01"},{"user":"user02"}]
 ```
 ## 六、FastAPI框架中全局依赖的使用
 
