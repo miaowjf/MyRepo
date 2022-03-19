@@ -21,13 +21,13 @@ react-router-dom
 一般组件放在components中，路由组件放在pages中
 一般组件没有显式的传递props时，this.porps为空
 路由组件没有显式传递props时，this.props有<font color=red>history(里面也有一个location)、location、match</font>三个重要的props
-|history|location|match|
+|history下的方法|location下的属性|match下的属性|
 |-------|--------|-----|
-|go|pathname|params|
-|goBack|search|path|
-|goForware|state|url|
-|push|||
-|replace|||
+|go(n)|pathname|params|
+|goBack()|search|path|
+|goForware(path,state)|state|url|
+|push(path,state)|||
+|replace(path,state)|||
 `<NavLink to='/about'>About</NavLink>`用NavLink时，点谁会在谁的上面加一个<font color=red>Active样式</font>。NavLink的<font color=yellow>activeClassName属性,</font>是激活状态的样式，可以定义其它的样式，给activeClassName来实现不同的激活状态。
 `<NavLink to='/about'>About</NavLink>` <font color=yellow>About</font>是标签体，可以通过<font color=red>this.props.children</font>拿到该值。
 `<NavLink to='/about'>About</NavLink>`也可以使用`<NavLink to='/about' children='About'/>`来代替
@@ -85,7 +85,7 @@ export default App
 ```
 
 ## 三、使用参数操作
-1. <font color=red>params传递参数</font>
+###1. <font color=red>params传递参数</font>
   - 路由链接（携带参数）：< Link to={\`/demo/test/tom/<font color=red>${参数}</font>\`}>详情</ Link>
   - 注册路由（声明接收）：< Route path='/demo/test/tom/<font color=red>:name/:age</font>' component={Test}/>
   - 接收参数： const {name,age}=<font color=red>this.props.match.params</font>
@@ -139,6 +139,34 @@ export default class Detail extends React.Component{
         )
     }
 }
+```
+### 2.传递search参数
+- 路由链接（携带参数）：<Link to=`/demo/test?id=${message.id}&title=${message.title}` component={Test}>详情</Link>
+- 注册路由（无需声明，正常注册即可）:<Route path='/demo/test' component={Test}/> 
+- 接收参数:const {search} =<font color=red>this.prpos.location</font>，然后获取的search为urlencoded编码的字符串，用querystring解析。
+```javascript
+//向路由传递search参数
+<Link to={`/home/message/detail/?id=${message.id}&title=${message.title}`}>{message.title}</Link>
+//声明接收search参数,无需声明接收
+<Route path="/home/message/detail" commponent={Detail}/>
+//接收参数，在组件的render函数中解析数据
+import qs from 'querystring'
+const {search} =this.props.location
+const {id,title}=qs.parse(search.slice(1))
+```
+### 3.向路由组件传递state
+- 路由链接（携带参数）：<Link to={{pathname='/demo/test',state={name:'tom',age:18}}}>详情</Link>
+- 注册路由（无需声明，正常注册即可):<Route path='/demo/test' component={Test}/>
+- 接收参数:const {变量名列表}=this.props.location.state
+<font color=red>不是组件中的state，是路由组件中独有的state</font>
+在地址栏中不显示传递的内容,刷新也不会丢失。
+```javascript
+//向路由传递state参数
+<Link to={{pathname:"/home/message/detail",state:{id:message.id,title:message.title}}}>{message.title}</Link>
+//声明接收state参数,无需声明接收
+<Route path='/home/message/deatil' commponent={Detail}/>
+//接收参数，在组件的render函数中解析数据
+const {id,title}=this.props.location.state
 ```
 
 ```javascript
@@ -311,3 +339,73 @@ export default App
 - 将public/index.html中的<font color=red>样式文件的引入方式</font>把./改为/
 - 也可以将<font color=red>%PUBLIC_URL%</font>,加到引入文件的前面(<font color=yellow>只在React中使用，别的不认</font>)
 - 使用<font color=red></font>也可以避免样式丢失。
+
+## 八、路由push与replace
+路由跳转默认都是push浏览时会留下痕迹，下面代码是使用replace方式
+```javascript
+//给最后的加replace属性，在浏览器中使用返回时，回到上次push内容的地方。
+<Link replace={true} to={`.....`}>详情</Link>
+```
+## 九、编程式路由式导航
+**借助this.props.history对象上的API来操作路由跳转、前进和后退**
+- this.props.history.push()
+- this.props.history.replace(path,state)
+- this.props.history.goBack()
+- this.props.history.goForward(path,state)
+- this.props.history.go(n)
+```javascript
+//push也一样，把replace改为push
+//这里的this是当前的路由组件(BrowserRouter)，后续查看相关资料,用路由组件上的history中的replace、push、goBack、goForward、go方法操作路由。go(n),n为1，2，3，-1，-2根据历史记录退几步或前进几步。
+replace=()=>{
+    this.props.history.replace(`/home/message/detail/${id}/${title}`)
+}
+<button onClick={()=>this.replaceShow(message.id,message.title)}>replace查看</button>
+```
+
+## 十、withRouter的使用
+<font color=red>withRouter</font>把一般组件转换为路由组件(<font color=yellow>是一个装饰器</font>)，为一般组件加上(<font color=red>BrowserRouter上的</font>)history、location和match三个属性
+
+```javascript
+import {withRouter} from 'react-router-dom'
+class Header extends React.Component{
+    ...
+}
+export default withRouter(Header)
+```
+withRouter的返回值是一个新组件，加上了路由组件的API和属性。
+
+## 十一、BrowserRouter和HashRouter的区别
+1. BrowserRouter使用的是H5的history API（React进行了封装），不兼容IE9及以下版本。HashRouter使用的是URL的哈希值,没有版本兼容问题。
+2. url表现方式不一样
+   - BrowserRouter的路径中没有#，例如：localhost:3000/demo/test
+   - HashRouter的路径包含#，localhost:3000/#/demo/test
+3. 刷新后对路由state参数的影响
+   - BrowserRouter没有任何影响，因为state保存在history对象中
+   - HashRouter刷新后会导致路由state参数的丢失
+4. 备注：HashRouter可以用于解决一些路径错误相关的问题
+
+## 十二、路由的懒加载
+
+```javascript
+import React,{lazy,Suspense} from 'react'
+
+import Home from './Home'//直接加载
+//下面这行是懒加载
+const About=lazy(()=>{
+    import('./About')
+})
+//在这里给fallback写一个加载过程的组件
+<Suspense fallback={<h1>Loading......</h1>}>
+<Route >
+</Suspense>
+```
+
+
+## 十三、React Router 6
+**与React Router 5相比的改变**
+- 内置组件变化：移除<Switch/>，新增<Routers/>等；
+- 语法变化：component={About}变为element={<About>}等； 
+- 新增多个Hook：useParams、useNavigate、useMatch等；
+- <font color=red>官方明确推荐函数式组件</font>
+
+

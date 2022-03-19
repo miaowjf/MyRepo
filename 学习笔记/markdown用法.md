@@ -58,18 +58,20 @@
     o{color:Orange}
     g{color:Green}
 </style>
-
 <r>list</r>
 
+==高亮==
 
+<u>下划线</u>
 
 三个减号是横线{:style="color":red}
+
+---
+
 
 ```html
 <span style="color:red;opacity:0.5">Hello</span>
 ```
-
-
 
 <span style="color:red;opacity:0.5">Hello</span>
 

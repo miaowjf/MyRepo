@@ -1,10 +1,19 @@
-# useCallback
+# PureComponent
+Component组件的2个问题
+- <font color=yellow>只要执行setState()，</font><font color=red>即使不更改状态数据，</font>组件也会重新render()，导致效率低。
+- <font color=yellow>只要当前的组件重新render(),</font><font color=red>子组件也会跟着重新render，</font>纵使子组件没有用到父组件的任何数据，导致效率低
+- 效率高的作法，应该是当组件的state和props数据发生改变时才会重新render()
+- 原因：Component中的shouldComponentUpdate()总是返回true
+- 解决的方法
+    - 修改shoulldComponentUpdate对比前后的值是否有变化 来决定是否重新render(),if (this.state.name==nextState.name) return false else return true
+    - 使用PureComponent组件，继承自它(extends PureComponent),当<font color=red>使用引用赋值时，</font><font color=yellow>由于引用地址没有变，会认为值没有改变</font>,就不会重新render。 **注意：** PureComponent只是对state和props进行<font color=red>浅比较</font>，如果对象内部数据变了，返回false。因此不要修改state和props的数据，而是要产生新的数据。（setState({变量：数据})
+## 一、useCallback
 ```javascript
 class App{
     render(){
         return
         <div>
-            <SomeComponent style={{fontSize:14}} doSomething={()=>{console.log('do something)}}/>
+            <SomeComponent style={{fontSize:14}} doSomething={()=>{console.log('do something')}}/>
         </div>
            
         }
@@ -45,7 +54,7 @@ function App(){
 子组件继承了PureComponent或者使用React.memo可以避免不必要的VDOM渲染。(<font color=red>子组件需要用React.memo包裹起来才管用</font>)
 可以由useMemo所取代
 
-# useMemo
+## 二、useMemo
 shouldComponentUpdate组件更新前执行的方法
 请求数据时需要使用，避免重复请求数据
 避免反复执行

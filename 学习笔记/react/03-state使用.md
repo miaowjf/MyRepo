@@ -188,7 +188,7 @@ export default class App extends React.Component{
     }
     render(){
         return(
-        <input type='text' value={this.state.value} onChange={this.handleChange.bind(this)/>#受控组件，推荐使用
+        <input type='text' value={this.state.value} onChange={this.handleChange.bind(this)}/>#受控组件，推荐使用
         )
     }
 }
@@ -281,7 +281,7 @@ export default class App extends React.Component{
         return(
             <>
             <div onClick={this.handleClick}>Event</div> #可以使用
-            <div onClick={()=>this.handleCanShuClick('abcd')}</div>  #使用回调函数传递参数
+            <div onClick={()=>this.handleCanShuClick('abcd')}></div>  #使用回调函数传递参数
             </>
 
         )
@@ -310,7 +310,7 @@ export default class App extends React.Component{
     render(){
         return(
             <>
-               <div onClick={this.handleClick('abc')}</div>  #柯里化的函数可以直接调用，返回一个函数给onClick
+               <div onClick={this.handleClick('abc')}></div>  #柯里化的函数可以直接调用，返回一个函数给onClick
             </>
 
         )
@@ -337,7 +337,18 @@ export default class App extends React.Component{
   + 使用箭头函数定义一个属性：<font color=red>handleClick=()=>{......}</font>
   + 在组件中使用箭头函数：<button onClick={()=>this.setState(prevState=>{count:prevState.count+1})}
 
-
+## 六、setState的扩展
+1. 对象式的setState
+   - 原来的setState后续操作是异步的，setState只是通知React进行状态修改，并不立即执行修改，需要使用setState中的第二个函数参数 进行操作。
+   - **在不依赖原状态**的情况下，使用对象方式的方便。this.setState({count:99},<font color=yellow>()=>{console.log(this.state.count)}</font>)黄色部分看下面的黄色解释。
+2. 函数式setState
+   - this.setState((prevCount)={count:prevCount+1},<font color=red>()=>{console.log(this.state.count)}</font>)
+后面的（）=>{}j是可选的回调函数，<font color=yellow>它在状态更新完毕，界面也更新后（render调用后才被调用）</font>
+   - this.setState(<font color=yellow>(state,props)</font>=>{
+    return {count:state.count+1}
+})
+<font color=yellow>它接收state和props数据</font>
+   - **依赖原状态和属性**的情况下使用函数的方法好
 
 
 
