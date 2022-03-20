@@ -408,4 +408,228 @@ const About=lazy(()=>{
 - 新增多个Hook：useParams、useNavigate、useMatch等；
 - <font color=red>官方明确推荐函数式组件</font>
 
+1. 一级路由
+   <font color=red>必须用Routes包裹</font>,有匹配的路由就不会继续向下找，与Switch一样。
+```javascript
+<BrowserRouter>
+    <NavLink to='/about'>About</NavLink>
+    <NavLink to='/home'>Home</NavLink>
 
+    <Routes>
+        <Route path='/about' element={<About/>}/>
+        <Route path='/home' element={<Home/>}>
+        //caseSensitive匹配时是否区分大小写（默认false）
+        <Route caseSensitive /> 
+    </Routes>
+</BrowserRouter>
+```
+
+2. 重定向(Navigate)
+`< Route path='/' element={<Navigate to='/about'>}/>`
+Navigate组件只要渲染就会引起视图的切换。replace默认为false，使用push跳转有后退，true是没有后退。
+`{sum===2 ? < Navigate replace={fasle} to='/about'/> : <h4> 当前sum的值是:{sum}</ h2>}`
+   
+`< button onClick={()=>{setSum(2)}}>点我导航至'/about'</ button>`
+3. NavLink高亮
+```javascript
+function computeClassName({isActive}){
+    return isActive ? "普通类名" : "活动类名"
+}
+<NavLink className={({isActive})=>return isActive ? "类的名字" : "活动类的名字"} to='/home'>Home</NavLink>
+<NavLink classNamd={coputeClassName} to='/home'>Home</NavLink>
+```
+4. useRoutes路由表
+适合统一管理路由
+```javascript
+const routes=useRoutes([
+    {
+        path:'/about',
+        element:<About/>
+    },
+    {
+        path:'/home',
+        element:<Home/>
+    },
+    {
+        path:'/',
+        element:<Navigate to='/about'/>
+    }
+])
+//使用路由表
+{routes}
+```
+5. 嵌套路由
+使用children来定义   
+ <font color=red>注意嵌套路由的path和to中不能使用/,可以使用./或不写</font>
+ 携带参数时path与原来写法一样
+<Outlet/>相当于是插槽，指出在哪里显示路由组件
+```javascript
+const routes=useRoutes([
+    {
+        path:'/about',
+        element:<About/>
+    },
+    {
+        path:'/home',
+        element:<Home/>,
+        children:[
+            {
+                path:'news',
+                element:<News/>
+            },
+            {
+                path:'message',
+                element:<Message/>,
+                children:[
+                    path:'detail/:id/:title',
+                    element:<Detail/>
+                ]
+            }
+        ]
+    },
+    {
+        path:'/',
+        element:<Navigate to='/about'/>
+    }
+])
+//使用路由表
+{routes}
+//指定路由组件显示的位置
+<Outlet/>
+//注意嵌套路由的path和to中不能使用/,可以使用./或不写
+```
+
+6. params参数使用
+```javascript
+import React,{useState} from 'react'
+
+export default function Message(){
+    const [messages]=useState([
+        {id:'001',title:'消息1',content:'12345'},
+        {id:'002',title:'消息2',content:'22345'},
+        {id:'003',title:'消息3',content:'32345'},
+        {id:'004',title:'消息4',content:'42345'},
+    ]
+    )
+    return (
+        <div>
+            <ul>
+            {
+                message.map((m)=>{
+                    return(
+                        <li key={m.id}>
+                        <Link to={`detail${m.id}${m.title}`}>{m.title}</Link>
+                        </li>
+                    )
+                })
+            }
+            </ul>
+            <Outlet/>
+
+        </div>
+    )
+}
+
+```
+子组件需要的操作
+```javascript
+import {useParams} from 'react-router-dom'
+// 就可以获取路由传来的数据
+const {id,title}=useParams()
+//还有useMatch,很少用
+const x=useMatch('/home/message/detail/:id/:title')
+
+```
+7. search参数使用
+路由表的数组里不用写参数
+path:'detail',
+element:<Detail/>
+```javascript
+import React,{useState} from 'react'
+
+export default function Message(){
+    const [messages]=useState([
+        {id:'001',title:'消息1',content:'12345'},
+        {id:'002',title:'消息2',content:'22345'},
+        {id:'003',title:'消息3',content:'32345'},
+        {id:'004',title:'消息4',content:'42345'},
+    ]
+    )
+    return (
+        <div>
+            <ul>
+            {
+                message.map((m)=>{
+                    return(
+                        <li key={m.id}>
+                        <Link to={`detail?id=${m.id}&title=${m.title}`}>{m.title}</Link>
+                        </li>
+                    )
+                })
+            }
+            </ul>
+            <Outlet/>
+        </div>
+    )
+}
+```
+子组件中使用useSearchParams
+```javascript
+const [search,setSearch]=useSearchParams()
+//通过get得到相应的参数值。
+console.log(search.get('id'))
+//setSearch更新收到的search参数
+setSearch('id=008&title=哈哈')
+//useLocation的使用
+const lo=useLocation()//直接获取相应的参数
+console.log(lo)
+```
+8. state参数
+也不需要在路由表数组里写特殊的路径
+```javascript
+<Link to='detail' state={
+    id:m.id,
+    title:m.title,
+    content:m.content
+}>{m.content}</Link>
+```
+子组件中的写法
+```javascript
+//{state:{id,title,context}}是连续解构，可能直接使用id,title,context
+const {state:{id,title,context}}=useLocation()
+console.log(id,title,context)
+```
+9. 编程式路由
+useNavigate
+```javascript
+const navigate=useNavigate()
+//跳转至/about
+navigate('/about')
+//跳转子路由使用相对路径,只能使用state属性，其它的只能用字符串拼接。
+navigate('detail',{replace:false,state:{
+    id:id,
+    title:titele,
+    content:content
+}})
+//前进
+navigate(1)
+//后退
+navigate(-1)
+```
+10. useRouterContext
+判断当前组件是否在<font color=red>路由(Router)的上下文环境中</font>。Router包括BrowserRouter、HashRouter等组件包裹。console.log(useRouterContext()),返回true,或false。
+11. useNavigationType()
+    在组件return前写console.log(useNavigationType())
+    返回当前导航的类型（POP、PUSH、REPLACE)
+    POP是指在浏览器中直接打开了这个组件（刷新页面）
+
+12. useOutlit
+    用来呈现当前组件中渲染的嵌套路由，（当前组件下的嵌套路由）
+    const result=useOutlet()
+    console.log(result)
+    如果嵌套路由没有挂载,则result为null(点完/home年，它下面的<font color=red>路由组件</font>还未渲染时)
+    如果嵌套路由已挂载，则展示嵌套的路由对象
+13. useResolvedPath
+    给定一个URL值，解析其中的params,search,location
+    console.log(userResolvedPath('/usr?id=001&name=lisi'))
+    
