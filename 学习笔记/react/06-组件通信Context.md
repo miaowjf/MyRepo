@@ -80,6 +80,23 @@ export{
     // const {Provider,Consumer}=testContext=createContext()与上两个语句的作用是一样的
 ```
 ## 第二个例子
+父组件中,A组件中包含一个B组件(A和B是父子关系）,传递props的方法如下：
+- < A render={(name)=>< B name={name}/>}/>,插入组件,render只是一个属性可以更换名字，但一般都使用render。
+- A组件中使用{this.props.render(name)},这里是预留位置，等插入组件
+- B组件使用{this.props.name} 来使用该值。
+```javascript
+//children props方法
+//问题：如果B组件需要A组件内的数据，无法实现
+<A>
+<B>***</B>
+</A>
+{this.props.children}
+
+//render props
+<A render={(data)=><B data={data}>}></B></A>
+A组件：{this.props.render(内部state的数据)}
+B组件：读取A组件传入的数据显示{this.props.data}
+```
 ```javascript
 #count.jsx
 import React from 'react'

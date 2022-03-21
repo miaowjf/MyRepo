@@ -24,8 +24,9 @@ useEffect(()=>{
 },**<font color=red>第二个参数</font>**)
 **<font color=yellow>第二个参数说明：</font>**
 
-+ <font color=red>没有第二个参数</font>：组件的<font color=yellow>初始化和更新</font>时都会更新
++ <font color=red>没有第二个参数</font>：组件的<font color=yellow>初始化和更新</font>时都会更新。<font color=green>定时器这样就不可以了</font>,需要使用第二个参数限制。
 + <font color=red>[ ]</font>：<font color=yellow>初始化调用一次后不再执行</font>，相当于是componentDidMount,只执行一次。
+定时器可以单独使用一个useEffect来做设定和Unmount操作。(还有鼠标监测等其它监测也可以写在一起)
 + <font color=red>[count,state]</font>:传入多个变量时时（也可以是函数），只要有一个<font color=yellow>值变化</font>，就会执行。
 
 ```javascript
@@ -74,7 +75,19 @@ export default (props) => {
   );
 };
 ```
-
+useEffect主要用于在函数中执行副作用操作（模拟组件中的生命周期钩子）
+- 发送ajax请求数据获取
+- 设置订阅/启动定时器
+- 手动更新真实DOM
+- 可以把useEffect看成是componentDidMount、componentDidUpdate、componentWillUnmount三个函数的组合。
+```javascript
+useEffect(()=>{
+  //在此执行副作用操作
+  return ()=>{
+    //在组件卸载前执行，做一些收尾工作，比如清除定时器/取消订阅等
+  }
+},[stateValue])//指定的是[]，回调函数只在第一次render()后执行。
+```
 
 
 
