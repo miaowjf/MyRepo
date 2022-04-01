@@ -26,9 +26,9 @@
   </head>
 ```
   
-  ## 二、基本语法
+## 二、基本语法
 
-  ### 1. 注释、变量声明
+### 1. 注释、变量声明
 ```javascript
 /*
 j这里是多行注释
@@ -63,7 +63,57 @@ const 声明的是常量
 isNaN(变量)判断一个参数是否“不是数值”。
 
 ### 3.语句
-P73页
 
-
-
+- if (条件） statement1 else statement2
+- do {statement}while(条件)
+- while(条件) {statement}
+- for(initialization;express;post-loop-express){语句}(与C一样)
+- for (property in expression) {statement}
+```javascript
+  for(const propName in window) {
+    //打印window所有的属性名称
+    document.write(propName)
+  }
+```
+- for (property of expression) {statement}
+  是一种严格的迭代语句，用于遍历可迭代对象的元素。
+```javascript
+for(const el in [1,3,7,2,9]){
+  document.write(el)
+}
+```
+- 标签语句
+  label:statemes
+```javascript
+outmost:
+for(let i=1;i<=10;i++){
+  ...
+  //或continue outmost;相应于是跳转操作。
+  break outmost;
+}
+```
+- with语句
+```javascript
+with(location){
+  let gs=search.substring(1)
+  let hostName=hostname
+  let url=hrer
+}
+```
+- switch语句
+```javascript
+switch(express){
+  case value1:
+    statement1
+    break;
+  case value2:
+    statement2
+    break;
+  default:
+    statement3
+}
+```
+### 4. 函数
+function 函数名(参数){
+  return ...
+}

@@ -66,7 +66,10 @@ class A extends React.Component{
 }
 ```
 ## 二、useContext 父子传值
-
+1. 父组件中创建Context，或在其它文件中单独创建由父组件引入。
+2. 在父组件中使用定义的<font color=red>Context名称.Provider</font>，包裹使用Context的子组件。
+3. 子组件中引入Context
+4. 使用字典传递参数时，可以使用{}解构方式进行。
 ```javascript
 import React from "react";
 import { useState, createContext, useContext } from "react";
