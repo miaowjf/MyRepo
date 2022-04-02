@@ -1,0 +1,6 @@
+删除以下文件夹内的所有文件，并重启，然后将要固定的文件夹重新拖到任务栏"附到windows资源管理器"即可
+%APPDATA%\Microsoft\Windows\Recent\AutomaticDestinations    “最近"
+%APPDATA%\Microsoft\Windows\Recent\CustomDestinations        "已固定"
+PS:将上面的路径直接用开始-->运行打开即可。
+
+删除“已固定”下的最近内容就可以恢复
