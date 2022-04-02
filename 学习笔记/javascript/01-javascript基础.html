@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-widh>, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript">
+        let a = 20
+
+        function hel() {
+            let obj1 = new Object()
+            let obj2 = obj1
+            obj1.name = 'wjf'
+            console.log(obj2.name)
+            obj2.name = 'lisi'
+            console.log(obj1, obj2)
+            console.log(a)
+        }
+
+        let now=new Date()
+        console.log(now)
+    </script>
+    <style>
+        h2~p {
+            color:red;
+        }
+        #more_info:target {
+            background: #888;
+        }
+        ul li:nth-child(odd){
+            color:red;
+        }
+        div {
+            width: 300px;
+            height: 200px;
+            background-color: blueviolet;
+            border:3px solid;
+            border-radius: 100px;
+            border-color: red;
+        }
+        #left {
+            float:left;
+        }
+        #right {
+            float:right;
+        }
+        #top {
+            float:right;
+        }
+        
+
+    </style>
+    
 </head>
+
 <body>
-    <button onclick="alert('hello world')">点我</button>
-    <a href="javascript:alert('Hello World');">点一下</a>
-    <a href="javascript:;">点一下</a>
+    <div id="left">
+        左
+    </div>
+    <div id="right">
+        右
+    </div>
+    <div style="border:red 30px solid">
+        <span>hello</span></div>
+
 </body>
+
 </html>
