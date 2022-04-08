@@ -146,4 +146,144 @@ console.log(person.name)
 
   把变量值高以null实际上会切断变量与其之前引用值之间的关系，当下次垃圾回收程序运行时，这些值就会被删除，内存也会被回收。
 
-## 四、基本引用类型（p103)
+## 四、基本引用类型
+
+```javascript
+let message='foobarbaz'
+console.log(message.startsWith('foo'))
+console.log(message.endsWith('baz'))
+console.log(message.includes('bar'))
+console.log('ab'.repeat(16))
+console.log('   abc   '.trim()) 
+console.log('foo'.padStart(6,':'))
+console.log('foo'.padEnd(6,':'))               
+console.log(...message)
+console.log(stringValue.localeCompare("brick"))//1
+console.log(stringValue.localeCompare("yellow"))//0
+console.log(stringValue.localeCompare("zoo"))//-1
+```
+## 五、集合引用类型
+
+### 1. Object
+```javascript
+let person=new Object()
+person.name='wjf'
+person.age=45
+```
+另一种方式是<font color=red>对象字面量(object literal)</font>表示方法，是对象定义的简易写法。
+```javascript
+let person={
+    name:'wjf',
+    age:45
+}
+console.log(person)
+console.log(person.name)
+console.log(person['name'])
+```
+```javascript
+let person={}//与new Object()相同
+person.name='wjf'
+person.age=45
+```
+
+### 2. Array
+
+```javascript
+let colors=new Array('red','yellow','blue','green')
+console.log(colors)
+for(c in colors){
+    console.log(c)
+    console.log(colors[c])
+}
+let names=['wjf','libing','ybg']//let names=new Array(...)
+let values=[]//let values=new Array()
+```        
+
+ES6新增用于创建数组的静态方法:from()、of()。from()用于将类数组结构转换为数组实例，而of()用于将一组参数转换为数组实例。
+```javascript
+console.log(Array.from('matter'))//['m','a','t','t','e','r']
+const m=new Map().set(1,2).set(3,4)
+const s=new Set().add(1).add(2).add(3).add(4)
+console.log(Array.from(m))//[[1,2],[3,4]]
+console.log(Array.from(s))//[1,2,3,4]
+let a1=[1,2,3,4]
+console.log(Array.from(a1.values()))
+console.log(Array.from(a1.keys()))
+console.log(Array.from(a1.entries()))
+for(const [id,item] of names.entries){
+  console.log(id,item)
+}
+```
+keys()、values()、entries(),返回迭代器，需要使用Array.from()直接转换为数组实例来使用。
+- 检查一个对象是不是数组
+
+```javascript
+if (value instanceof Array){
+//操作对象
+}
+```
+<font color=red>数组名.fill(5)</font>，将数组全部填充为值5
+
+```javascript
+const zeroes=[0,2,3,4,5,6,6];
+zeroes.fill(6,3)//用6填充索引值大于3的元素
+zeroes.fill(7,1,3)//用7填充索引值大于等1且小于3的元素
+```
+copyWithin()会按照指定范围浅复制数组中的部分内容，然后将它们插入到指定索引开始的位置。
+```javascript
+let ints,reset=()=>ints=[0,1,2,3,4,5,6,7,8,9]
+reset()
+console.log(ints)
+ints.copyWithin(0,5)//从索引5开始的内容，插入到索引0的位置
+console.log(ints)
+reset()
+ints.copyWithin(5)
+console.log(ints)//从索引0开始的内容，插入到5开始的位置
+console.log(a1.toString())//拼成1，2，3，4的字符串
+console.log(colors.valueOf())//显示原数组
+console.log(colors)//显示原数组
+console.log(colors.join('...'))//用...连接colors里的元素
+```
+push(数据),pop(数据)
+shift(位置)//位置省略默认为第一项，返回位置数据，在队列里删除该数据。
+数据名.sort()排序，数据名.reverse()反序
+数据名.sort(排序函数)，比较函数-1为第一个数排在第二个数的前面，相等返回0，返回1第一个数排在第二个数的后面。
+
+- 迭代方法
+  every()
+  filter()
+  forEach()
+  map()
+  some()
+
+```javascript
+let numbers=[1,2,3,4,5,6,7]
+//every里的函数进行判断，所有数据都符合条件返回真
+let result=numbers.every((item)=>item%2==0)
+//some里的函数进行判断，有一个数据为true就返回true
+result=numbers.some((item)=>item%2==0)
+//filter返回不能被2整除的数据
+result=numbers.filter((item)=>item%2)
+console.log(result)
+//map返回数组元素*2的数组
+result=numbers.map(item=>item*2)
+console.log(result)
+//forEach进行数组迭代
+numbers.forEach((item,index,array)=>{
+  console.log(item,index,array)
+})
+```
+
+- 归并方法
+reduce()、reduceRight()
+```javascript
+let values=[1,2,3,4,5]
+let sum=values.reduce((prev,cur)=>prev+cur)
+console.log(sum)
+let sum=values.reduceRight(function(prev,cur)=>{
+  return prev+cur
+})
+```
+
+## 六、迭代器与生成器(p183)
+## 七、对象、类与面向对象编程(p205)
