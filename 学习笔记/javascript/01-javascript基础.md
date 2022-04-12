@@ -286,4 +286,19 @@ let sum=values.reduceRight(function(prev,cur)=>{
 ```
 
 ## 六、迭代器与生成器(p183)
-## 七、对象、类与面向对象编程(p205)
+## 七、对象、类与面向对象编程
+
+### 1. 原型
+无论何时，只要创建一个函数，就会按照特定的规则为这个函数创建一个<font color=red>prototype属性</font>(指向原型对象)。默认情况下，所有原型对象自动获得一个名为<font color=red>constructor的属性</font>，与之关联的构造函数。自定义构造函数时，原型对象默认只会获得constructor属性，其它的所有方法都继承自<font color=red>Object</font> 。
+
+查看属性是否在对象中，in，无论<font color=red>无论属性在实例上还是在原型上</font>，都返回true。
+```javascript
+let person={
+  name:'wjf',
+  age:17
+}
+console.log("name" in person)//true
+console.log(Object.keys(person))//打印person的所有属性
+console.log(Object.values(person))//打印person的所有属性值
+```
+person.hasOwnProperty("job"),只有实例上有job时，才返回true。hasPrototypeProperty(person,"job")，name属性只存在于原型上时才返回true。
