@@ -1,70 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-widh>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script type="text/javascript">
-        let a = 20
-
-        function hel() {
-            let obj1 = new Object()
-            let obj2 = obj1
-            obj1.name = 'wjf'
-            console.log(obj2.name)
-            obj2.name = 'lisi'
-            console.log(obj1, obj2)
-            console.log(a)
-        }
-
-        let now=new Date()
-        console.log(now)
-    </script>
-    <style>
-        h2~p {
-            color:red;
-        }
-        #more_info:target {
-            background: #888;
-        }
-        ul li:nth-child(odd){
-            color:red;
-        }
-        div {
-            width: 300px;
-            height: 200px;
-            background-color: blueviolet;
-            border:3px solid;
-            border-radius: 100px;
-            border-color: red;
-        }
-        #left {
-            float:left;
-        }
-        #right {
-            float:right;
-        }
-        #top {
-            float:right;
-        }
-        
-
-    </style>
-    
 </head>
-
 <body>
-    <div id="left">
-        左
+    <div>
+        <ul>
+            <li id="li1">item1</li>
+            <li>item2</li>
+            <li>item3</li>
+            <li>item4</li>
+            <li>item5</li>
+            <li>item6</li>
+            <li>item7</li>
+        </ul>
     </div>
-    <div id="right">
-        右
-    </div>
-    <div style="border:red 30px solid">
-        <span>hello</span></div>
+    <script>
+        let list=document.getElementsByTagName('li')
+        console.log(list)
+        for(i=0;i<list.length;i++){
+            console.log(list[i])
+        }
+        let li=document.querySelector('#li1')
+        console.log(li.innerText)
 
+        li.innerText="abc"
+
+        console.log(li.getAttribute('id'))
+        console.log(li.getAttribute('innerText'))
+        li.setAttribute('id',"ddd")
+    </script>
 </body>
-
 </html>

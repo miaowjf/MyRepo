@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let person={
+            name:'wjf',
+            age:42,
+            sex:'nan'
+        }
+        console.log(person)
+        let p1=person
+        let p2=person
+        p2.name='abc'
+        p1.age=46
+        console.log(person,p1,p2)
+        function Person(){
+            this.name='wjf'
+            this.age=45
+            this.sex="nan"
+        }
+        let pa1=new Person()
+        let pa2=new Person()
+        pa1.name="abc"
+        pa2.age=47
+        console.log(pa1,pa2)
+        for(k in pa1){
+            console.log(k,pa1[k])
+        }
+    </script>
+</body>
+</html>
