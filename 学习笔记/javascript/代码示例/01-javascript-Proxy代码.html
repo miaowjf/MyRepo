@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li id="li1">item1</li>
+            <li>item2</li>
+            <li>item3</li>
+            <li>item4</li>
+            <li>item5</li>
+            <li>item6</li>
+            <li>item7</li>
+        </ul>
+    </div>
+    <script>
+        const person={
+            name:'wjf',
+            age:44
+        }
+        const personProxy=new Proxy(person,{
+            get(target,property){
+                //console.log(target,property)
+                return property in target?target[property]:"default"//属性存在返回属性的值，不存在返回default
+            },
+            set(target,property,value){
+                //可以在这里进行数据检测
+                target[property]=value
+                console.log(target,property,value)
+            }
+        })
+        console.log(personProxy.name)//返回wjf
+        console.log(personProxy.xxx)//返回default
+        personProxy.gender='man'//设置gender的值为man
+    </script>
+</body>
+</html>

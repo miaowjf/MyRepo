@@ -41,7 +41,61 @@ render(){
 }
 ```
 
-## 二、setState
+## 二、修改状态（setState）
+- 语法
+
+  `this.setState({ 要修改的部分数据 })`
+
+- setState方法作用
+
+  1. 修改state中的数据状态
+  2. 更新UI
+
+- 思想
+
+  ​	数据驱动视图，也就是只要修改数据状态，那么页面就会自动刷新，无需手动操作dom
+
+- 注意事项
+
+  ​	**不要直接修改state中的值，必须通过setState方法进行修改**
+  
+```javascript
+  //错误的修改方法(直接修改)
+  state = {
+  count : 0,
+  list: [1,2,3],
+  person: {
+     name:'jack',
+     age:18
+  }
+  }
+  // 直接修改简单类型Number
+  this.state.count++
+  ++this.state.count
+  this.state.count += 1
+  this.state.count = 1
+  
+  // 直接修改数组
+  this.state.list.push(123)
+  this.state.list.spice(1,1)
+  
+  // 直接修改对象
+  this.state.person.name = 'rose'
+```
+
+```javascript
+//正确修改状态的方法(覆盖原来的值)
+  this.setState({
+    count: this.state.count + 1
+    list: [...this.state.list, 4],
+    person: {
+       ...this.state.person,
+       // 覆盖原来的属性 就可以达到修改对象中属性的目的
+       name: 'rose'
+    }
+})
+```
+
 
 ```javascript
 import React from 'react'
@@ -107,6 +161,26 @@ let obj={}
 state={
     ...this.state,
     ...obj
+}
+```
+
+```javascript
+//函数组件使用useState
+function App(){
+    const [message,setMessage]=useState('')
+    const handleChange=(e)=>{
+        setMessage(e.target.value)
+        console.log(message)
+    }
+    return(
+        <div>
+          <input
+            placeholder='请输入信息'
+            value={message}
+            onChange={handleChange}
+          />
+        </div>
+    )
 }
 ```
 
@@ -343,7 +417,7 @@ export default class App extends React.Component{
    - **在不依赖原状态**的情况下，使用对象方式的方便。this.setState({count:99},<font color=yellow>()=>{console.log(this.state.count)}</font>)黄色部分看下面的黄色解释。
 2. 函数式setState
    - this.setState((prevCount)={count:prevCount+1},<font color=red>()=>{console.log(this.state.count)}</font>)
-后面的（）=>{}j是可选的回调函数，<font color=yellow>它在状态更新完毕，界面也更新后（render调用后才被调用）</font>
+后面的（）=>{}是可选的回调函数，<font color=yellow>它在状态更新完毕，界面也更新后（render调用后才被调用）</font>
    - this.setState(<font color=yellow>(state,props)</font>=>{
     return {count:state.count+1}
 })

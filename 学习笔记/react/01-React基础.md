@@ -40,7 +40,48 @@ sudo n stable  # 安装最新版本
 ## 二、组件的使用
 
 
+### 组件的类型(函数组件和类组件定义及使用)
+```javascript
+import './App.css';
+import React from 'react'
+//函数组件定义:剪头函数方式
+const Home=(props)=>{
+    return <div>Home Component.{props.name}</div>
+}
+//函数组件定义:普通函数方式
+function Home(props){
+    return <div>Home Component.{props.name}</div>
+}
+//类组件定义
+class About extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return (
+            <div>
+                About Component {this.props.name}
+            </div>
+        )
+    }
+}
+//类组件
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                Hello World!
+                <About name='lzi'/>
+                <Home name='wjf'/>
+            </div>
+        )
+    }
+}
 
+
+export default App
+
+```
 ```javascript
 #使用变量的方式进行渲染
 const app=<div>hello</div>
@@ -48,7 +89,7 @@ ReactDOM.render(app,getElementById('root'))
 
 #使用函数的方式进行渲染
 可以用函数来传参数，函数式组件
-const app=(props)=>{
+const App=(props)=>{
     return <div>hello {props}</div>
 }
 ReactDOM.render(app('!!!'),getElementById('root'))
@@ -61,11 +102,11 @@ const App=(props)=>{
 ReactDOM.render(<App title='!!!' name='world'/>,getElementById('root'))
 ```
 
-const app=()=>{}的资料要仔细看。函数的使用。<font color=red>箭头函数</font>:更简短的函数并且不绑定this。
+const App=()=>{}的资料要仔细看。函数的使用。<font color=red>箭头函数</font>:更简短的函数并且不绑定this。
 
-<font color=red>函数组件</font>的<font color=yellow>props</font>是不用<font color=yellow>this</font>来进行绑定使用的。在函数组件中直接使用<font color=red>props.属性名</font>直接使用。
+<font color=red>函数组件</font>的<font color=yellow>props</font><font color=red>是不用</font><font color=yellow>this</font>来进行绑定使用的。在函数组件中直接使用<font color=red>props.属性名</font>直接使用。
 
-**没有单独的this**
+==**<font color=red>没有单独的this</font>**==
 
 在箭头函数出现之前，每一个新函数根据它是被如何调用的来定义这个函数的this值：
 
@@ -153,16 +194,17 @@ export default class App extends Component{
 定义用法：
 
 ```javascript
-#第一种方法
+//第一种方法
 function 组件名(){//组件名第一个字母大写
     ...
 }
 export default 组件名
-#第二种方法
+//第二种方法
 export default ()=>{ //没有组件名直接暴露
     ...
 }
+//第三种方式
+const 组件名=()=>{
+
+}
 ```
-
-
-
