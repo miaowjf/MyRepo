@@ -128,17 +128,88 @@ Child.defaultProps={
 }
 ```
 
+**props.children属性**
+`目标任务:`  掌握props中children属性的用法
+
+**children属性是什么**
+
+表示该组件的子节点，只要组件内部有<font color=red>子节点</font>，props中就有该属性
+
+**children可以是什么**
+
+1. 普通文本
+2. 普通标签元素
+3. 函数
+4. JSX
+**示例代码**
+```jsx
+<Father>
+    <Son/>
+</Father>
+//Father组件中的children就是Son组件
+```
+
+
 ## 三、props-types检查、默认值
+`目标任务:`  掌握props常见的规则
+
+**四种常见结构**
+
+1. 常见类型：array、bool、func、number、object、string
+2. React元素类型：element
+3. 必填项：isRequired
+4. 特定的结构对象：shape({})
+
+**核心代码**
+```jsx
+// 常见类型
+optionalFunc: PropTypes.func,
+// 必填 只需要在类型后面串联一个isRequired
+requiredFunc: PropTypes.func.isRequired,
+// 特定结构的对象
+optionalObjectWithShape: PropTypes.shape({
+	color: PropTypes.string,
+	fontSize: PropTypes.number
+})
+```
+[PropTypes官方文档](https://reactjs.org/docs/typechecking-with-proptypes.html#gatsby-focus-wrapper)
+## props校验-默认值
+
+`目标任务:`  掌握如何给组件的props提供默认值
+
+> 通过 `defaultProps` 可以给组件的props设置默认值，在未传入props的时候生效
+
+### 1. 函数组件
+
+直接使用函数参数默认值
+
+```jsx
+function List({pageSize = 10}) {
+  return (
+    <div>
+      此处展示props的默认值：{ pageSize }
+    </div>
+  )
+}
+```
+### 2. 类组件
+
+
+使用类静态属性声明默认值，`static defaultProps = {}`
+// 不传入pageSize属性
+
+<List />
+```
 
 ```javascript
 import React from 'react'
 import PropTyps from 'prop-types'
 
 class MyComponent extends React.Component{
-    static propTypes={
-        title:PropTypes.string
+    static propTypes={ //注意propTypes第一个字母小写
+        title:PropTypes.string//这里的PropTypes第一个字母大写
     }
-    static defaultProps{
+    static defaultProps{ //定义默认值
         sex:'男',
         age:18
     }
@@ -146,9 +217,9 @@ class MyComponent extends React.Component{
         return ...
     }
 }
-MyComponent.propTypes={#声明了属性，和在类里面定义一样。在函数组件中只能使用这种方式
+MyComponent.propTypes={、、声明了属性，和在类里面定义一样。在函数组件中只能使用这种方式
     optionalArray:PropTypes.array,
-    opti0onalBool:PropTypes.bool,
+    optionalBool:PropTypes.bool,
     ....
 }
 MyComponent.defaultPorps={#使用默认值，和在类里面定义一样。在函数组件中只能使用这种方式
