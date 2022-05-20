@@ -16,7 +16,7 @@
     - maxmemory 152mb 设置最大内存
     - logfile 'redis.log'，日志默认为空
     - dbfilename dump.rdb
-  然后使用<font color=red>redis-server </font>配置文件名称来启动
+    然后使用<font color=red>redis-server </font>配置文件名称来启动
 3. 开机自动启动
 需要制作一个services程序 
 
@@ -28,8 +28,9 @@
   - -h 127.0.0.1 连接到指定的redis节点的IP地址
   - -p 6379 连接到指定的端口号,默认为6379
   - -a 123456 指定redis的访问密码
+  - --raw 显示中文
 2. command
   - ping 与服务端心跳测试，服务器正常会返回pong
-  ./redis-cli ping
+    ./redis-cli ping
 
 连入后，如果需要密码可以通过<font color=red>auth 用户名 密码</font>来登录使用，没有用户名，直接写密码就可以。

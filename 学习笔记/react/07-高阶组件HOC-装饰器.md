@@ -1,3 +1,56 @@
+## render props模式
+
+![rend-props模式](images/render-props模式.jpg)
+
+1. 创建Mouse组件，在组件中提供利用的状态逻辑代码（1.状态 2.操作状态的代码）
+2. 将要复用的状态作为props.render(state)方法的参数，暴露到组件外部
+3. 使用props.render()的返回值作为要渲染的内容
+```javascript
+function App(){
+    return(
+        <div>
+          <Mouse render={(mouse)=><p>mouseX:{mouse.x},mouseY:{mouse.y}</p>}>
+        </div>
+    )
+}
+function Mouse(props){
+    const [point,setPoint]=useState({"x":0,"y":0})
+    handleMouseMove=(e)=>{
+      setPoint({"x":e.clientX,"y":e.clientY})
+    }
+        useEffect(()=>{
+      window.addEventListener('mousemove',handleMouseMove)
+    },[point])
+    return props.render(point) 
+}
+```
+## children 代替render属性
+
+![children-render](images/children代替render属性.jpg)
+
+```javascript
+function App(){
+    return(
+        <Mouse>
+          {(mouse)=><p>mouseX:{mouse.x},mouseY:{mouse.y}</p>}
+        </Mouse>
+    )
+}
+
+function Mouse(){
+    const [point,setPoint]=useState({"x":0,"y":0})
+    const handleMouseMove=(e)=>{
+        setPoint({"x":e.clientX,"y":e.clientY})
+    }
+    useEffect(()=>{
+      window.addEventListener('mousemove',handleMouseMove)
+      return ()=>{
+          window.removeEventListener('mousemove',handleMouseMove)
+      }
+    },[point])
+}
+```
+
 ## 高阶组件（HOC）
 
 higher-Order Components就是一个函数，传给它一个组件，它返回一新的组件。
