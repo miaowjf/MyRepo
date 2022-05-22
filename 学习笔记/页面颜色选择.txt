@@ -1,0 +1,3 @@
+官方建议我们以饱和度500的颜色作为APP的主色(colorPrimary)，通过颜色的对比又发现饱和度700更适合作为状态栏的颜色，即比主色更暗一点的颜色(colorPrimaryDark)，我还通过网上的一个教程说建议使用饱和度A200的颜色作为强调色(colorAccent)。
+
+https://material.io/resources/color
