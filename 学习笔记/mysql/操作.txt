@@ -6,4 +6,4 @@ flush privileges;
 
 $mysql -u gsc -p
 
-alter 'gsc'@'%' identified by 'ÃÜÂë'
+alter user 'gsc'@'%' identified by 'ÃÜÂë'
