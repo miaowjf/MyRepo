@@ -61,6 +61,7 @@ const 声明的是常量
 **增加<font color=red>undefined</font>的作用是为了与空对象指针null和<font color=red>未初始化变量</font>的区别。** undefined是从null派生来的（null==undefined）。null是这指针，undefined是未赋值。
 
 isNaN(变量)判断一个参数是否“不是数值”。
+`let message;message==undefined//true`
 
 ### 3.语句
 
@@ -244,6 +245,8 @@ console.log(colors.valueOf())//显示原数组
 console.log(colors)//显示原数组
 console.log(colors.join('...'))//用...连接colors里的元素
 ```
+slice(开始位置，结束位置) 截取数组，结束位置默认为到最后位置，位置可以是负数
+splice(开始位置，删除几个，插入的元素...)
 push(数据),pop(数据)
 shift(位置)//位置省略默认为第一项，返回位置数据，在队列里删除该数据。
 数据名.sort()排序，数据名.reverse()反序
@@ -255,6 +258,7 @@ shift(位置)//位置省略默认为第一项，返回位置数据，在队列�
   forEach()
   map()
   some()
+  回调函数的参数为(item,index,arr)=>{console.log(item,index,arr)}
 
 ```javascript
 let numbers=[1,2,3,4,5,6,7]
@@ -286,6 +290,95 @@ let sum=values.reduceRight(function(prev,cur)=>{
 ```
 
 ## 六、迭代器与生成器(p183)
+**迭代器**
+```javascript
+class Counter{
+    constructor(limit){
+        this.limit=limit
+    }
+    //定义迭代器
+    [Symbol.iterator](){
+        let count=1,limit=this.limit
+        return{
+            //next定义
+            next(){
+                if (count<=limit){
+                    return {done:false,value:count++}
+                }else{
+                    return {done:true,value:undefined}
+                }
+            },
+            //提前终止时执行内容
+            return(){
+                console.log('exit')
+                return {done:true}
+            }
+        }
+    }
+}
+
+
+let c2=new Counter(8)
+for(let i of c2){
+    if (i>5){
+        break
+    }
+    console.log(i)
+}
+```
+**生成器**
+ 生成器是一个函数，在函数的前面加一个星号（*）表示它是一个生成器。
+```javascript
+function* generatorFn(){}
+let generatorFn=function*(){}
+//做为对象字面量方法的生成器函数
+let foo={
+  * generatorFn(){}
+}
+//作为类实例方法的生成器
+class Foo{
+  * generatorFn(){}
+}
+```
+调用生成器函数会产生一个**生成器对象**，生成器对象开始处于**暂停执行**（suspended),与迭代器相似，生成器也实现了iterator接口,因此也有next()方法。调用这个方法会让生成器开始或恢复执行。
+```javascript
+
+function* generator(){
+    yield 'foo'
+    yield 'bar'
+    return 'bz'//没有这句最后返回{value:undefined,done:true}
+}
+
+let g=generator()
+console.log(g)
+console.log(g[Symbol.iterator]())//和g是一样的
+console.log(g.next())
+console.log(g.next())
+console.log(g.next())
+```
+<font color=red>yield</font>关键字只能在生成器函数中使用，用在其它地方会出错。必须在生成器函数定义中，出现在<font color=red>出现在嵌套的非生成器函数中</font>会抛出错误
+```javascript
+function* validGenerator(){
+  yield;//有效
+}
+
+function* invalidGenerator(){
+  function a(){
+    yield;//无效
+  }
+}
+
+function* generator(){
+  yield* [1,2,3]
+}
+//上面代码相当于是下面的
+function* generator(){
+  for(const x of [1,2,3]){
+    yield x
+  }
+}
+//可以使用yield* 实现递归
+```
 ## 七、对象、类与面向对象编程
 
 ### 1. 原型
@@ -302,3 +395,66 @@ console.log(Object.keys(person))//打印person的所有属性
 console.log(Object.values(person))//打印person的所有属性值
 ```
 person.hasOwnProperty("job"),只有实例上有job时，才返回true。hasPrototypeProperty(person,"job")，name属性只存在于原型上时才返回true。
+
+
+## 代理和反射
+
+### 代理
+```javascript
+const target={foo:'bar'}
+const handler={
+  //get的三个参数分别是代理的目标、属性、接收者，可以进行相应操作
+  get(trapTarget,property,receiver){
+    console.log(trapTarget===target)//true
+    console.log(property)//foo
+    console.log(receiver===proxy)//true
+    return trapTarget[property]//返回属性的值
+  }
+}
+const proxy=new Proxy(target,handler)
+console.log(proxy.foo)//返回bar
+```
+Reflect.get()：可以替代对象属性访问操作符。
+Reflect.set()：可以替代=赋值操作符。
+Reflect.has()：可以替代in 操作符或with()。
+Reflect.deleteProperty()：可以替代delete 操作符。
+Reflect.construct()：可以替代new 操作符。
+```javascript
+const target={foo:'foo',bar:'bar'}
+const handler={
+  //get的三个参数分别是代理的目标、属性、接收者，可以进行相应操作
+  get(trapTarget,property,receiver){
+    console.log(trapTarget===target)//true
+    console.log(property)//foo
+    console.log(receiver===proxy)//true
+    let s=Reflect.get(...arguments)+'!!!'//实现原始操作，可以在原始操作上增加内容
+    return s
+  },
+  set(target,property,value,receiver){
+    console.log('set()')
+    value=value+'(set)'
+    return Reflect.set(...arguments)//set使用
+  }
+}
+const proxy=new Proxy(target,handler)
+
+console.log(proxy.foo)
+console.log('--')
+console.log(proxy.bar)
+
+
+const o={}
+try{
+    //Object.defineProperty(o,'foo',{value:'bar'})
+    Object.defineProperty(o,'foo','bar')
+    console.log('success')
+}catch(e){
+    console.log('failure')
+}
+
+if(Reflect.defineProperty(o,'foo',{value:'bar'})){
+    console.log('success')
+}else{
+    console.log('failure')
+}
+```
