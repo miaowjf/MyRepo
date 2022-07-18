@@ -40,3 +40,8 @@ if(Reflect.defineProperty(o,'foo',{value:'bar'})){
     console.log('failure')
 }
 
+function double(value){
+  setTimeout(()=>setTimeout(console.log,0,value*2),1000)
+}
+
+double(3)
