@@ -1,0 +1,59 @@
+free 查看内存使用情况 -h  （cat /proc/meminfo)
+runlevel查看运行的情况（命令行，还是窗口）
+init 3切换到命令行模式（5是X模式）
+
+/etc/issue登录显示信息
+
+hostname查看主机名称
+hostname -I 查看主机地址
+
+echo $SHELL查看shell
+
+ps aux列出运行的程序
+
+cat /etc/hostname
+hostname 主机名（设置主机名）
+
+sudo -i 改成root用户
+echo $PS1 显示提示符格式，可以更改自定义提示方式（\e,\u,\H，etc）
+
+lscpu查看CPU
+
+hash  将命令放到内存中，可以查看执行过的命令
+
+source 配置完的文件生效（.与它功能一样，是内部命令）
+
+/etc/profile.d/env.sh
+
+enable 查看内部生效的命令
+enable 启用内部命令
+enable -n 禁用内部命令
+
+lsblk ：显示当前的硬盘(cat /proc/partitions
+
+uptime ：显示开机多长时间
+
+id显示用户相关信息
+
+bc计算器（obase=2,设置输出为2进制）
+
+lscpu =cat /proc/cpuinfo(信息更全）
+
+\ 可以把命令行分行输入
+
+uname -r 看内核的版本
+
+cal 查看日历(cal 2022)
+
+shutdown +10 (10分钟后关机, shutdown -c 取消关机计划)
+
+w 查看登录人员信息
+
+echo -e "\a" 发出系统通知音
+
+man ascii查看asc代码
+
+hexdump -C 文件名（以16进制显示文）
+
+命令行扩展:``和$()
+echo "i am `whoami`" 和echo "iam $(whoami)" 是一样的。
