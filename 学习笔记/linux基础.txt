@@ -57,3 +57,18 @@ hexdump -C 文件名（以16进制显示文）
 
 命令行扩展:``和$()
 echo "i am `whoami`" 和echo "iam $(whoami)" 是一样的。
+
+dirname 获取路径名
+basename 获取文件名
+
+echo $OLDPWD 上一个目录
+$PWD 当前目录
+
+/etc/os-release 当前操作系统的信息
+
+ls -dl /etc 查看/etc的属性，而不是看/etc里的内容的属性
+
+ls --time=ctime
+目录名：查看目录或文件的属性改变时间（mtime内容修改时间,atime访问时间）
+
+stat 文件名[目录名] 查看详细内容包括atime,ctime,mtime
