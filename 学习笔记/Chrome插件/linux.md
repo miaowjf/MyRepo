@@ -45,4 +45,13 @@ command !n:m调取第n条命令的第m个参数
 <kbd>ctrl+h</kbd>删除前一个字符
 
 ## 获取帮助
+whatis命令的简短说明
+
+command --help
+
+man and info
+man 1 man
+man [章节号] 命令
+章节号在whatis 命令中查看
+/usr/share/doc/
 
