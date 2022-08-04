@@ -2,6 +2,7 @@ echo {0..10}
 echo {0..20..2}
 echo {000...30..2}
 echo file{a..z}{txt,log}
+touch file{a..z}.txt
 
 echo `echo hostname` 执行``中的内容并用echo显示出来
 echo 'echo hostname'
@@ -55,3 +56,157 @@ man [章节号] 命令
 章节号在whatis 命令中查看
 /usr/share/doc/
 
+
+
+free 查看内存使用情况 -h  （cat /proc/meminfo)
+runlevel查看运行的情况（命令行，还是窗口）
+init 3切换到命令行模式（5是X模式）
+
+/etc/issue登录显示信息
+
+hostname查看主机名称
+hostname -I 查看主机地址
+
+echo $SHELL查看shell
+
+ps aux列出运行的程序
+
+cat /etc/hostname
+hostname 主机名（设置主机名）
+
+sudo -i 改成root用户
+echo $PS1 显示提示符格式，可以更改自定义提示方式（\e,\u,\H，etc）
+
+lscpu查看CPU
+
+hash  将命令放到内存中，可以查看执行过的命令
+
+source 配置完的文件生效（.与它功能一样，是内部命令）
+
+/etc/profile.d/env.sh
+
+enable 查看内部生效的命令
+enable 启用内部命令
+enable -n 禁用内部命令
+
+lsblk ：显示当前的硬盘(cat /proc/partitions)
+
+uptime ：显示开机多长时间
+
+id显示用户相关信息
+
+bc计算器（obase=2,设置输出为2进制）
+
+lscpu =cat /proc/cpuinfo(信息更全)
+
+\ 可以把命令行分行输入
+
+uname -r 看内核的版本
+
+cal 查看日历(cal 2022)
+
+shutdown +10 (10分钟后关机, shutdown -c 取消关机计划)
+
+w 查看登录人员信息
+
+echo -e "\a" 发出系统通知音
+
+df -i 查看分区的节点编号大小，不加i查看磁盘大小
+
+df -h 查看容量G，不是块的形式
+
+lsof |grep delete 查看删除的没有释放的情况
+
+
+man ascii查看asc代码
+
+hexdump -C 文件名（以16进制显示文）
+
+命令行扩展:``和$()
+echo "i am `whoami`" 和echo "iam $(whoami)" 是一样的。
+
+dirname 获取路径名
+basename 获取文件名
+
+echo \$OLDPWD 上一个目录
+$PWD 当前目录
+
+/etc/os-release 当前操作系统的信息
+
+ls -dl /etc 查看/etc的属性，而不是看/etc里的内容的属性
+
+ls --time=ctime
+目录名：查看目录或文件的属性改变时间（mtime内容修改时间,atime访问时间）
+
+stat 文件名[目录名] 查看详细内容包括atime,ctime,mtime
+
+**显示编码列表**
+icon -l
+file 文件名(获取文件格式)
+iconv -f 文件的格式 输入的文件名 -o 输出的文件名  (默认转为utf-8)
+
+iconv -f 文件格式 -t 需要转换为的格式 文件名 -o 输出的文件名
+
+
+**字符的匹配**
+* 不匹配.开头的隐藏文件
+~- 前一个工作目录
+~+ 当前工作目录
+
+[0-9]匹配数字1个
+[a-z]匹配小写字符1个
+[A-Z]匹配大写字符1个
+[wang]匹配列表中的傻傻一个字符
+[^wang]匹配列表中的所有字符以外的字符
+[:digit:]任意数字相当于0-9
+[:lower:]只匹配小写字符
+[:upper:]
+[:alpha:]任意大小写字符
+ls \[[:lower:]](**需要套两层[]**)
+
+ls -ad .*
+ls -a .* 会进入目录会看到（.,..目录中的内容）-d 不会进入..
+
+ls -A 不显示.和..目录
+
+ls -d * 只显示目录
+
+cp -p 拷贝时保留属性、所有者和权限
+cp -d 不复制原始文件，只复制链接名。通常与-p联合使用
+cp -a 归档，相当于备份
+cp -v 显示进度
+
+shred 彻底删除，内容覆盖多次
+
+cat /dev/null> 文件名 :清空文件，释放使用的空间
+> 文件名也可以实现上述功能，但是有的系统不支持(shell)
+
+ln 文件名 新的位置文件名 （硬连接）
+**链接就是一个文件有多个名字，不能跨分区进行链接**
+不支持目录的链接，删除时减少计数，为0时删除文件
+可以通过硬链接来减少磁盘I/O,在空闲时间来进行删除避免磁盘繁忙
+
+**符号链接**（软链接）相当于是快捷链接
+ln -s 文件名 链接的文件名 (删除原始文件时，软链接失效，变为红色)
+在不同的目录中使用软链接时，需要在原始文件加上链接文件的相对目录(或者直接写直接路径)
+软链接支持文件夹和分区的链接。
+
+**管道学习**
+/proc下面的数字目录是进程编号
+/进程号/fd目录中的数字是指的就是 **<font color=red>文件描述符</font>**
+echo $$ 显示当前进程编号(shell)
+tty显示当前登录的终端
+0 ->/dev/pst/1 指的是标准输出是终端1 
+1 ->/dev/pst/1 指的是标准输入是终端1 
+2 ->/dev/pst/1 指的是标准错误输出是终端1 
+
+ls -d /dev/st* 显示出基本输出、输入、错误的文件描述符
+
+1> 或>  标准输出重新定义到到文件名
+hostname 1> /dev/pts/1 在指定的终端窗口显示输出内容 
+2> 标准错误重定到文件
+&> 所有输出都重定到文件
+
+清除大文件:cat /dev/null > /data/file.log
+
+ls /data /err > /data/all.log 2>&1 (&1 代表文件描述符1，也就是标准输出)
