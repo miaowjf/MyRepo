@@ -58,7 +58,7 @@ man [章节号] 命令
 
 
 
-free 查看内存使用情况 -h  （cat /proc/meminfo)
+free 查看内存使用情况 -h  (cat /proc/meminfo)
 runlevel查看运行的情况（命令行，还是窗口）
 init 3切换到命令行模式（5是X模式）
 
@@ -210,3 +210,13 @@ hostname 1> /dev/pts/1 在指定的终端窗口显示输出内容
 清除大文件:cat /dev/null > /data/file.log
 
 ls /data /err > /data/all.log 2>&1 (&1 代表文件描述符1，也就是标准输出)
+
+tr 转换字符
+tr '123' 'abc' :把123分别转换为abc
+tr 'a-z' 'A-Z'  小写转换为大写,等价 tr '[:lower:]' '[:upper:]'
+tr -d 'abc' 删除abc
+tr -s 'abc' 压缩连续的字符，连续的只留一个
+tr -dc abc 除了abc其它的全删
+tr -dc '[:alnum:]' </dev/urandom
+
+tr '\012' '\015\012' <linux.txt>win.txt 格式转换
