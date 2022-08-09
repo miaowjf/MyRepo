@@ -220,3 +220,105 @@ tr -dc abc 除了abc其它的全删
 tr -dc '[:alnum:]' </dev/urandom
 
 tr '\012' '\015\012' <linux.txt>win.txt 格式转换
+
+## 用户和组的权限管理
+sudo getent shadow 用户名 ：查看用户shadow内容
+cat /etc/group 查看用户的组情况
+cat /etc/gshadow 查看组shadow
+
+sudo openssl rand -base64 12 随机生成12位密码
+
+pwck 检查passwd文件是否有错误
+grpck 检查group文件是否有错误
+
+sudo getent passwd wjf
+sudo getent shadow wjf
+sudo getent group wjf
+
+
+useradd
+- -u指定id
+- -r创建系统帐号，系统帐号没有家目录
+- -d在指定家目录
+- -g指明用户所属基本组，可以是组名或组id，不指定创建一个用户同名的组
+- -G指定附加组，可以有多个组，用","分开，组必须存在
+- -s指定shell程序，可用列表在/etc/shells,/sbin/nologin,不登录使用（一般是服务等程序）
+- -c用户注释 
+useradd -r -u 48 -g apache -s /sbin/nologin -d /var/www -c "Apache" apche
+
+/etc/default/useradd 默认参数的位置
+
+/etc/skel/*   :默认的配置文件和.bashrc文件等文件
+/etc/login.defs :控制帐号的一些内容（加密策略等）
+
+newuser passwd 格式文件（批量创建用户）
+批量修改用户口令(可以用文件：内容为username:passwd，cat 文件名|chpasswd，还实现)
+echo username:passwd |chpasswd
+usermod
+- -u更改用户id
+- -g更改用户的组
+- -L 对用户加锁
+- -U 解锁指定用户
+userdel
+- -f强制删除
+- -r删除用户家目录和邮箱
+
+passwd
+- -d删除指定用户密码
+- -l锁定用户
+- -u解锁用户
+- -e强制下次登录时更改密码
+
+
+groupadd
+- -g 增加组id
+- -r 系统组
+groupmod
+groupdel
+
+/var/spool/mail/用户名 用户邮件的位置
+
+sudo groups wjf看wjf是在哪个组里
+
+chown [option] [owner]:[gropu] file 更改文件或目录的所有者和组
+
+chown wjf file.txt
+chown :root file.txt
+chown wjf:root file.txt
+
+chgrp 组名 file 改变组
+
+df -Th 显示分区的类型并以G的格式显示容量
+
+umask 123 更改默认创建文件的权限
+新建文件默认权限是：666-umask
+新建目录默认权限是：777-umask
+非特权用户umask是：002
+特权用户umask是：022
+umasm是显示目前的umask码
+chmod 4777 /tmp/a.txt 加s权限
+s以属主身份运行程序，S属主没有运动权限
+chmod 777/tmp/a.txt可以去掉s权限
+
+chattr +i 不能删除、改名更改,-i去掉特殊属性
+chattr +a 只能追加内容
+
+lsattr 显示特定内容
+
+
+### 访问控制列表
+早期的系统不支持acl需要进行手动增加
+tune2fs -o acl /dev/sdb1
+mount -o acl /dev/sdb1 /mnt/test
+
+setfacl 可以设置acl权限
+getfacl 可以查看设置的acl权限
+
+setfacl -m u:root:- f1.txt
+-m是修改,u是用户,root是要修改的用户，-是权限（无任何权限）
+
+setfacl -Rb dir/去掉acl权限,可用于错误的acl权限操作
+
+dmesg查看硬件事件
+
+gerp -f 文件名1 文件名2 以第一个文件为基础，取出两个文件相同的内容
