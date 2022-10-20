@@ -120,6 +120,8 @@ lsof |grep delete 查看删除的没有释放的情况
 
 man ascii查看asc代码
 
+od -tc hello ：查看二进制文件(tx以16进制查看,to以8进制查看,tc以字符查看)
+
 hexdump -C 文件名（以16进制显示文）
 
 命令行扩展:``和$()
@@ -175,6 +177,9 @@ cp -p 拷贝时保留属性、所有者和权限
 cp -d 不复制原始文件，只复制链接名。通常与-p联合使用
 cp -a 归档，相当于备份
 cp -v 显示进度
+
+ps aux 查看进程 x执行的进程(包括不在终端运行的也显示)
+        u是进程使用资源的情况
 
 shred 彻底删除，内容覆盖多次
 
@@ -322,3 +327,271 @@ setfacl -Rb dir/去掉acl权限,可用于错误的acl权限操作
 dmesg查看硬件事件
 
 gerp -f 文件名1 文件名2 以第一个文件为基础，取出两个文件相同的内容
+
+## 打包tar
+c 打包 (vf)v是查看详情，f是打包哪个文件
+t 预览 (vf)
+x 解包 (vf)
+tar -cvf 创建的文件.tar 要打包的文件或文件夹
+tar -cvf bak.tar bak
+
+tar -xvf 解压的文件名 解压到哪里
+
+
+## sed 学习
+'地址命令'
+- 不设地址代表对全文进行处理
+- #:指定的行(#,#)(#,+#)
+- $：最后一行
+- /pat1/,/pat2/
+- #,/pat/
+- ~：步进（1~2奇数行，2~2偶数行）
+
+sed -n '3p' 文件名:只打文件的第3行
+
+## 磁盘相关
+mknod /data/partition-sda1 b 8 1
+8是主设备号（哪个硬盘），1是次设备号（哪个分区）ls -l里可以看
+将设备创建为一个文件，可以通过mount挂载到目录上
+
+目前都是sd开头（ide、scsi、sas、usb等）
+
+env 查看环境变量
+
+ip addr 查看网络信息
+ifconfig
+arp -a
+
+nslookup www.baidu.com 查看百度的ip及相关j息
+
+## ftp设置
+apt install vsftpd
+vim /etc/vsftpd.conf
+service vsftpd restart
+service vsftpd status
+开放相关端口
+uwf allow 21
+
+## nfs管理
+apt install nfs-kernel-server
+vim /etc/exports
+增加一个目录:/home/wjf/test *(rw,sync)
+
+mount serverIP:共享目录 /mnt (挂载目录)
+
+## scp 复制网络上的文件
+scp 用户名@主机IP：要复制的目录 复制的位置
+
+
+## 编译操作
+- 预处理 gcc -E hello.c -o hello.i
+  头文件展开，宏替换，注释去掉
+- 编译   gcc -S hello.i -o hello.s
+  C文件变成汇编文件
+- 汇编   gcc -c hello.s -o hello.o
+  将汇编文件变成二进制文件
+- 链接   gcc hello.o -o hello
+  将函数库中相应的代码组合到目标文件中
+
+## 静态库生成和使用
+gcc *.c -c -I ../include
+ar rcs libMycalc.a *.o
+gcc main.c lib/libMycalc.a -o main -I include
+或gcc main.c -I include -L lib -l MyCalc -o main
+-L指定库文件目录，-Iinclude包含头文件 -l MyCalc（这里是去掉前面的lib和后面的.a就是自己的库名）
+
+nm libMycalc.a 查看库内定义的函数
+nm main
+T 是指在代码区
+
+## 动态库生成和使用
+
+gcc -fPIC -c *.c -I../include
+gcc -shared -o libMyCalc.so *.o -Iinclude
+
+gcc main.c lib/libMyCalc.so -o app -Iinclude
+或gcc main.c -Iinclude -L ./lib -l MyCalc -o main
+
+ldd main
+查看依赖的库
+
+## GDB调试
+gcc *.c -o main -g
+gdb main
+b 6：在第六行打断点
+b 6 if i==6 :i=6时断点启用
+b 函数名
+b 行号
+
+d 断点号（i b ,查看断点编号）
+
+start开始调试，只执行一步
+n执行下一句,单步执行
+c继续执行,直接停在断点处
+
+s(step) 进入函数体内部
+
+l查看源代码
+l 文件名:行号(函数名)
+
+进入函数体后，l可以查看函数源代码，可以使用b继续打断点
+
+p 变量名,可以查看变量值
+
+ptype 变量名，查看变量类型
+
+display 设置追踪变量，自动打印循环的内容：display 变量名(undisplay 编号,info display:查看变量编号)
+
+u跳出循环执行
+
+finish 跳出函数，循环
+
+d 6删除断点（后面是编号）
+
+set 变量名=10
+
+退出gdb：quit
+
+### gdb总结
+  1. 前提条件：可执行文件必须包含调试信息gcc -g
+  2. gdb 文件名 --启动gdb调试
+  3. 查看代码命令
+        当前文件：list 行号(函数名)
+        指定文件：list 文件名：行号(函数名)
+  4. 设置断点
+        当前文件：b 行号(函数名)
+        指定文件：b 文件名:行号(函数名)
+        设置条件断点： b 行号 if value==123
+        查看断点信息：info b
+        删除断点： d 断点编号(编号通过上面断点信息查询)
+  5. 开始调试
+        只执行一行：start(开始后断续执行到断点用continue --c)
+        运行到断点：run --r
+  6. 单步调试
+        进入函数体：step --s  (跳出函数体：finish 。如果在循环处有断点，需要将断点删除)
+        不进入函数体：next --n
+  7. 追踪变量
+        自动打印变量的值：display 变量名
+        取消变量的追踪：undisplay 编号
+        获取变量编号：info display
+        手动打印变量值：print 变量名 --p
+        获取变量的类型：ptype 变量名
+  8. 跳出循环：u
+  9. 退出gdb:quit
+
+
+## makefile
+1. makefile命名
+  - makefile
+  - Makefile
+  文件名是以上2个
+
+2. makefile的规则
+  - 规则中的3个要素：目标、依赖、命令
+  目标：依赖条件
+  tab缩进紧跟命令
+  eg:
+  ```shell
+  app:main.c sub.c add.c mul.c div.c
+        gcc main.c add.c sub.c mul.c div.c -o app
+  ```
+  app是要生成的文件,后面的.c是依赖的文件(gcc那行是执行的命令,源文件不在一个目录中时，要在源文件前加目录)
+  然后通过make编译输出
+  ```shell
+  #第一条的目标就是终极目标
+  此方法可以只编译更改的文件
+  app:main.o add.o sub.o mul.o div.o
+      gcc main.o add.o sub.o mul.o div.o -o app
+  main.o:main.c
+      gcc -c main.c
+  add.o:add.c
+      gcc -c add.c
+  sub.o:sub.c
+      gcc -c sub
+  div.o:div.c
+      gcc -c div.c  
+  ```
+
+  ```shell
+  # 增加自定义变量obj,都是小写
+  obj=main.o add.o sub.o mul.o div.o
+  target=app
+  $(target):$(obj)
+      gcc $(obj) -o $(target)
+  main.o:main.c
+      gcc -c main.c
+  add.o:add.c
+      gcc -c add.c
+  sub.o:sub.c
+      gcc -c sub
+  div.o:div.c
+      gcc -c div.c  
+  ```
+  ```shell
+  # 模式使用
+  obj=main.o add.o sub.o mul.o div.o
+  target=app
+  $(target):$(obj)
+      gcc $(obj) -o $(target)
+  %.o:%.c
+      gcc -c $<-o $@
+  #上面的$<和$@是makefile中的自动变量
+  ```
+  自动变量说明: 
+  <font color=red>
+   - $<:规则中的第一个依赖
+   - $@:规则中的目标
+   - $^:规则中所有的依赖
+  </font>
+
+  makefile自己维护变量，都是大写
+  CC=cc （cc其实就是gcc）用$(cc)来使用
+  CPPFLAGS =-I （预处理需要的选项）
+
+3. 函数的使用
+   ```shell
+   obj=main.o add.o sub.o mul.o
+   target =app
+   #函数的返回值,返回所有的c源文件
+   src=$(wildcard ./*.c)
+   #patsubst 匹配替换,将src里的文件名(.c)替换为.o
+   obj=$(patsubst ./*.o,./%c,$(src))
+
+   clean:
+       rm *.o
+       #rm $(obj) $(target)
+  .PHONY:hello
+  hello:
+      # 执行错误时忽略错误继续向下执行
+      -mkdir /dir
+      echo 'hello world'
+   ```
+   执行目标对应的命令
+.PHONE设置hello为伪目标，不再比较文件新旧
+make clean 就执行clean后面的内容
+make hello
+
+### makefile总结
+1. 一个规则
+    三个要素：目标、依赖、命令
+        目标：依赖
+          命令
+    - 第一条规则是用来生成终极目标的规则
+        如果规则中的依赖不存在，向下寻找其他的规则
+        更新机制：比较的是目标文件和依赖文件的时间
+2. 两个函数
+    查找指定目录下，指定类型的文件：src=$(wildcard "/home/wjf/study/*.c")
+    匹配替换函数：obj=$(patsubst %.c,%.o, $(src)) 把src里的*.c改为*.o
+3. 三个自动变量
+    $<:规则中的第一个依赖
+    $^:规则中的所有依赖
+    $@：规则中的目标
+4. 模式规则
+    %.o:%.c
+        gcc -c $< -o $@
+## 虚拟地址空间
+linux 每一个运行的程序（进程）操作系统都会为其分配一个0~4G的地址空间（虚拟地址空间）
+
+
+man 2 open 看第二章的open(第二章为系统调用)
+
