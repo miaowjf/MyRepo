@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1,h2{
+            color:red;
+            font-size:32px;
+        }
+    </style>
+
+</head>
+<body>
+   <h1>Hello World</h1> 
+   <hr/>
+   <h2>come on</h2>
+   <hr/>
+   <form action="http://www.baidu.com" method="GET" name="HelloWorld">
+
+    <label for="name">姓名:</label>
+    <input type="text" id="name" />
+    <label for="nan">男</label><input name="xb" id="nan" type="radio"/>
+    <label for="nv">女</label><input name="xb" id="nv" type="radio"/>
+    爱好：<input type="checkbox" name="ah" value="sleep">睡觉 
+    <input type="checkbox" name="ah" value="study">学习
+    <input type="checkbox" name="ah" value="beat">打豆豆
+    <select name="area">
+        <option value="tj">天津</option>
+        <option value="sh">上海</option>
+        <option value="bj">北京</option>
+    </select>
+
+    <input type="reset" value="重置"/>
+    <input type="submit" value="提交" />
+   </form>
+</body>
+</html>
