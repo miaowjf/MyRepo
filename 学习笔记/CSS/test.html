@@ -1,63 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>emmet使用</title>
     <style>
-        .one{
-            height:200px;
+        .one {
+            height: 200px;
             width: 200px;
             text-align: center;
             text-decoration: none;
         }
-        ol li{
-            color:aqua;
+
+        ol li {
+            color: aqua;
         }
-        li{
-            color:red;
+
+        li {
+            color: red;
         }
-        ul>li{
-            color:orange;
+
+        ul>li {
+            color: orange;
         }
-        input:focus{
-            color:red;
+
+        input:focus {
+            color: red;
             background-color: yellow;
         }
-        a{
-            display:block;
-            width:230px;
-            height:40px;
+
+        a {
+
+            text-shadow: 5px 5px 5px red;
+            display: block;
+            width: 230px;
+            height: 40px;
             background-color: #55585a;
-            font-size:14px;
-            color:white;
-            text-decoration:none;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
             text-indent: 2em;
             line-height: 40px;
         }
-        a:hover{
+
+        a:hover {
             background-color: orangered;
         }
-        .box{
-            width: 200px;
-            height: 200px;
-            border:2px solid red;
-            border-top:2px solid blue;
+
+        .mibox {
+            width: 1200px;
+            height: 460px;
+            background-color: pink;
+        }
+
+        .left {
+            width: 230px;
+            height: 460px;
+            background-color: purple;
+            float: left;
+        }
+
+        .right {
+            width: 970px;
+            height: 460px;
+            background-color: skyblue;
+            float: right;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box li {
+            list-style: none;
+        }
+
+        .box {
+            width: 1226px;
+            height: 285px;
+            background-color: pink;
+            color: aqua;
+            margin: 0 auto;
+        }
+
+        .box li {
+            color: black;
+            height: 285px;
+            width: 296px;
+            float: left;
+            background-color: purple;
+            margin-right: 14px;
+        }
+
+        .box .last {
+            margin-right: 0;
+        }
+
+        .box2 {
+            margin-bottom:10px;
+            height: 615px;
+            width: 1226px;
+            background-color: pink;
+        }
+        .left1{
+            width: 224px;
+            height: 615px;
+            background-color: purple;
+            float:left;
+        }
+        .right1{
+            width:992px;
+            height:615px;
+            background-color:aqua;
+            float:left;
+        }
+        .right1>div{
+            background-color: pink;
+            width: 234px;
+            height:300px;
+            float:left;
+            margin-left:14px;
+            margin-bottom:14px;
+
         }
     </style>
 </head>
+
 <body>
-    <hr/>
-    <h1>小米侧边栏</h1>
-    <a href="#">手机 电话卡</a>
-    <a href="#">电视 盒子</a>
-    <a href="#">笔记本 平板</a>
-    <a href="#">出行 穿戴</a>
-    <a href="#">智能 路由器</a>
-    <a href="#">健康 儿童</a>
-    <a href="#">耳机 音响</a>
-    <hr/>
+    <div class="box2">
+        <div class="left1"></div>
+        <div class="right1">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+        </div>
+    </div>
+    <ul class="box">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li class="last">4</li>
+    </ul>
     <div class="box"></div>
+    <div class="box1">
+        <hr />
+        <h1>小米侧边栏</h1>
+        <a href="#">手机 电话卡</a>
+        <a href="#">电视 盒子</a>
+        <a href="#">笔记本 平板</a>
+        <a href="#">出行 穿戴</a>
+        <a href="#">智能 路由器</a>
+        <a href="#">健康 儿童</a>
+        <a href="#">耳机 音响</a>
+        <hr />
+    </div>
+    <div class="mibox">
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
 </body>
+
 </html>
