@@ -2902,7 +2902,7 @@ border-top-left-radius:20px;border-top-right-radius:20px;border-bottom-right-rad
 
 1.  精灵技术主要针对于背景图片使用。就是把多个小背景图片整合到一张大图片中。
 2.  这个大图片也称为 sprites 精灵图 或者 雪碧图
-3.  移动背景图片位置， 此时可以使用 background-position 。
+3.  移动背景图片位置， 此时可以使用 <font color=red>background-position,PS里测量出来的数据用负数就可以正常显示 </font>。
 4.  移动的距离就是这个目标图片的 x 和 y 坐标。注意网页中的坐标有所不同
 5.  因为一般情况下都是往上往左移动，所以数值是负值。
 6.  使用精灵图的时候需要精确测量，每个小背景图片的大小和位置。
@@ -2911,7 +2911,7 @@ border-top-left-radius:20px;border-top-right-radius:20px;border-bottom-right-rad
 
 1.  精灵图主要**针对于小的背景图片**使用。
     
-2.  主要借助于背景位置来实现—**background-position** 。
+2.  主要借助于背景位置来实现—**background-position**。
     
 3.  一般情况下精灵图都是**负值**。（千万注意网页中的坐标： x轴右边走是正值，左边走是负值， y轴同理。）
     
@@ -3092,7 +3092,7 @@ IcoMoon 成立于 2011 年，推出了第一个自定义图标字体生成器，
 
 网页中常见一些三角形，使用 CSS 直接画出来就可以，不必做成图片或者字体图标。
 
-一张图， 你就知道 CSS 三角是怎么来的了, 做法如下：
+一张图， 你就知道 CSS <font color=red>三角</font>是怎么来的了, 做法如下：
 
 ![1571520965966](https://img-blog.csdnimg.cn/img_convert/1ec8d30a833a930f0dee0aa7ca62bebb.png)
 
@@ -3107,7 +3107,7 @@ line-height:0;
  }
 ```
 
-1.  我们用css 边框可以模拟三角效果
+1.  <font color=red>我们用css 边框可以模拟三角效果</font>
 2.  宽度高度为0
 3.  我们4个边框都要写， 只保留需要的边框颜色，其余的不能省略，都改为 transparent 透明就好了
 4.  为了照顾兼容性 低版本的浏览器，加上 font-size: 0; line-height: 0;
@@ -3243,7 +3243,7 @@ vertical-align : baseline | top | middle | bottom
 
 ### 5.2 解决图片底部默认空白缝隙问题
 
-bug：图片底侧会有一个空白缝隙，原因是行内块元素会和文字的基线对齐。
+<font color=red>bug</font>：图片底侧会有一个空白缝隙，原因是行内块元素会和文字的基线对齐。
 
 主要解决方法有两种：
 
@@ -3308,7 +3308,20 @@ display: -webkit-box;
 
 1.让每个盒子margin 往左侧移动 -1px 正好压住相邻盒子边框
 
-2.鼠标经过某个盒子的时候，提高当前盒子的层级即可（如果没有有定位，则加相对定位（保留位置），如果有定位，则加z-index）
+2.鼠标经过某个盒子的时候，提高当前盒子的层级即可（如果没有有定位，则<font color=red>加相对定位（保留位置），</font>如果有定位，则加z-index）
+或使用下面代码：
+```css
+/*第一种方法*/
+ul li:hover{
+    position:relative;
+    border:1px solid blue;
+}
+/*第二种方法*/
+ul li:hover{
+    z-index:1;
+    border:1px solid blue;
+}
+```
 
 ### 7.2 文字围绕浮动元素
 
