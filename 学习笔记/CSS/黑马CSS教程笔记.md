@@ -3717,15 +3717,14 @@ section[class$=data] {    color: blue;}
     
 -   匹配到父元素的序号为奇数的子元素
     
-    `ul li:nth-child(odd){}` **odd** 是关键字 奇数的意思（3个字母 ）
+    `ul li:nth-child(odd){}` **odd** 是关键字 奇数的意思（3个字母 ）,2n+1
+-   ul li:nth-child(n){}:<font color=red>选择所有的li</font>
     
 -   匹配到父元素的序号为偶数的子元素
     
-    `ul li:nth-child(even){}` **even**（4个字母 ）
+    `ul li:nth-child(even){}` **even**（4个字母 ），等于2n
     
--   **匹配到父元素的前3个子元素**
-    
-    `ul li:nth-child(-n+3){}`
+-   **匹配到父元素的前3个子元素**: `ul li:nth-child(-n+3){}`
     
     选择器中的 **n** 是怎么变化的呢？
     
@@ -3780,8 +3779,8 @@ section[class$=data] {    color: blue;}
 #### 小结
 
 -   结构伪类选择器一般用于选择父级里面的第几个孩子
--   nth-child 对父元素里面所有孩子排序选择（序号是固定的） 先找到第n个孩子，然后看看是否和E匹配
--   nth-of-type 对父元素里面指定子元素进行排序选择。 先去匹配E ，然后再根据E 找第n个孩子
+-   nth-child 对父元素里面<font color=red>所有孩子排序选择（序号是固定的）</font> 先找到第n个孩子，然后看看是否和E匹配<font color=yellow>(如果第n个元素不是指定的E就不会匹配上)</font>
+-   nth-of-type 对父元素里面指定子元素进行排序选择<font color=yellow>(先选出指定的元素E，能匹配)</font>。 先去匹配E ，然后再根据E 找第n个孩子
 -   关于 nth-child（n） 我们要知道 n 是从 0 开始计算的，要记住常用的公式
 -   如果是无序列表，我们肯定用 nth-child 更多
 -   类选择器、属性选择器、伪类选择器，权重为 10
@@ -3820,10 +3819,10 @@ section[class$=data] {    color: blue;}
 
 注意：
 
--   before 和 after 创建一个元素，但是属于行内元素
+-   before 和 after 创建一个元素，但是属于<font color=red>行内元素</font>
 -   新创建的这个元素在文档树中是找不到的，所以我们称为伪元素
 -   语法： element::before {}
--   before 和 after 必须有 content 属性
+-   before 和 after <font color=red>必须有 content 属性</font>
 -   before 在父元素内容的前面创建元素，after 在父元素内容的后面插入元素  
     伪元素选择器和标签选择器一样，权重为 1
 
