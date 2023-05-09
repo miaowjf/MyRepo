@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>建造模式</h1>
+    <script>
+        class c1{
+            init(){
+                console.log("c1 init")
+            }
+            run(){
+                console.log("c1 run")
+            }
+        }
+        
+        class c2{
+            init(){
+                console.log("c2 init")
+            }
+            run(){
+                console.log("c2 run")
+            }
+        }
+        //建造者在这里，进行统一一致的操作
+        class Creator{
+            startBuilder(op){
+                op.init()
+                op.run()
+            }
+        }
+        //创建建造者，并参数进行统一操作
+        let op=new Creator()
+        op.startBuilder(new c1())
+        op.startBuilder(new c2())
+    </script>
+</body>
+</html>

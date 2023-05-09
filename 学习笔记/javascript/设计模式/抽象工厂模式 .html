@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<>
+    <h1>抽象工厂模式</h1>
+    <p>ctrl+shift+i</p>
+    <p>看输出的uc1、u1、uc2、u2,分别是class、object、class、object</p>
+    <script>
+        class User{
+            constructor(username,role,pages){
+                this.username=username
+                this.role=role
+                this.pages=pages
+            }
+            welcome(){
+                console.log(`Welcom ${this.username}`)
+            }
+            dataShow(){
+                throw new Error("抽象方法，不能直接调用")
+            }
+        }
+        class Admin extends User{
+            constructor(username){
+                super(username,'Admin',['admin','home'])
+            }
+            dataShow(){
+                console.log('admin page')
+            }
+        }
+        class Editer extends User{
+            constructor(username){
+                super(username,'editer',['editer','home'])
+            }
+            dataShow(){
+                console.log('editer Page')
+            }
+        }
+        //这个函数是抽象工厂函数，生成一个类，而不是对象，在需要实例对象时使用new实例化对象。
+        function getAbstractFactory(role){
+            switch(role){
+                case 'Admin':
+                    return Admin
+                case 'Editer':
+                    return Editer
+                default:
+                    throw new Error("参数错误")
+            }
+        }
+        console.log('start')
+        let uc1=getAbstractFactory('Admin')
+        let u1=new uc1('ker')//实例化对象u1
+        console.log(uc1)
+        console.log(u1)
+        let uc2=getAbstractFactory('Editer')
+        let u2=new uc2('hee')
+        console.log(uc2)
+        console.log(u2)//实例化对象u2
+        console.log('end')
+    </script>
+</body>
+</html>

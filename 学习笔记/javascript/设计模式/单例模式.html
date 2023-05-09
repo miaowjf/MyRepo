@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>建造模式</h1>
+    <script>
+        class Sigleton {
+            constructor(name, age) {
+                if (!Sigleton.instance) {
+                    this.name = name
+                    this.age = age
+                    Sigleton.instance = this
+                } else {
+                    return Sigleton.instance
+                }
+            }
+        }
+        let l1 = new Sigleton('wjf', 17)
+        let l2 = new Sigleton('lb', 44)
+
+
+        let sign = (function () {
+            let instance
+            function User(name, age) {
+                this.name = name
+                this.age = age
+            }
+            return function (name, age) {
+                if (!instance) {
+                    instance = new User(name, age)
+                }
+                return instance
+            }
+        })()
+        let a=sign('wjf',46)
+        let b=sign('lb',27)//这里不会改变a的值，a和b是一样的值
+        console.log(a,b)
+        console.log(a===b)
+    </script>
+</body>
+
+</html>

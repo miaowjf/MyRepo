@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World JavaScriopt</h1>
+    <script>
+        class Person{
+            constructor(name,age){
+                this.name=name
+                this.age=age
+            }
+            say(){
+                console.log(`My nae is ${this.name}. I am ${this.age} olds.`)
+                console.log(this)
+            }
+        }
+        class User{
+            constructor(role,pages){
+                this.role=role
+                this.pages=pages
+            }
+            //根据需求返回一个实例，简化操作。
+            static userFactory(role){
+                switch (role) {
+                    case "admin":
+                        return new User("admin",['admin','home'])
+                        break;
+                    case "superAdmin":
+                        return new User("superAdmin",['superAdmin','home','admin'])
+                        break;
+                    case "editer":
+                        return new User("editer",['editer','home','admin'])
+                        break;
+                    default:
+                        throw new Error("参数错误")
+            }
+        }
+    }
+        let person=new Person('wjf',46)
+        person.say()
+        let u1=User.userFactory('admin')
+        let u2=User.userFactory('superAdmin')
+        let u3=User.userFactory('editer')
+        //let u4=User.userFactory('abc')//参数错误
+    </script>
+</body>
+</html>
