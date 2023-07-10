@@ -21,7 +21,7 @@ function Mouse(props){
         useEffect(()=>{
       window.addEventListener('mousemove',handleMouseMove)
     },[point])
-    return props.render(point) 
+    return props.render(point)
 }
 ```
 ## children 代替render属性
@@ -37,7 +37,7 @@ function App(){
     )
 }
 
-function Mouse(){
+function Mouse(props){
     const [point,setPoint]=useState({"x":0,"y":0})
     const handleMouseMove=(e)=>{
         setPoint({"x":e.clientX,"y":e.clientY})
@@ -48,6 +48,7 @@ function Mouse(){
           window.removeEventListener('mousemove',handleMouseMove)
       }
     },[point])
+return props.children(point)
 }
 ```
 
