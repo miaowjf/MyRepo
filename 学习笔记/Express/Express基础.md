@@ -20,20 +20,22 @@ app.listen(3000,()=>{
 })
 ```
 ### req传参数
-1. req.query属性传参数(?id=1001)
+1. req.query属性传参数(?id=1001&name=wjf&age=28)
 ```javascript
 app.get('/user',(req,res))
 //staus可以使用query参数传递方式
 res.status(201).send('hello')
+console.log(req.query)//{id='1001',name="wjf",age="28"}
+console.log(req.query.id,req.query.name,req.query.age)
 ```
-2. req.params属性传参数
+2. req.params属性传参数(/user/1001/wjf)
 ```javascript
 app.get('/user/:id/:name',(req,res)=>{
     console.log(req.params.id,':',req.params.name)
-    console.log(req.params)
+    console.log(req.params)//{id:"1001",name:"wjf"}
     //响应代码用res.end
     res.statusCode=201
-    res.end()
+    res.end()//end结束响应
 })
 ```
 
@@ -53,6 +55,21 @@ app.get('/user',(req,res)=>{
 })
 ```
 
+发送json数据
+```javascript
+res.json({
+id:17,
+name:'wjf'
+})
+
+```
+
+获取post方法中的数据
+```javascript
+app.use(express.json())//解析json格式数据（application/json)
+app.use(express.urlencoded())//解析application/x-www-form-urlencoded,都配置可以实现多种解析，不执行上面两个语句body为空
+console.log(req.body)
+```
 ## 中间件
 
 ### 404处理
@@ -62,8 +79,12 @@ app.use((req,res)=>{
     res.send(req.url+'未找到')
 })
 ```
+![[Pasted image 20231202092115.png]]
+![[Pasted image 20231202093235.png]]
+<font color=red>需要使用res.send,res.status(400).end()来结束响应周期，继续向下执行，有next（）才能继续执行，只能执行一次给客户端响应（结束后不再执行响应），后面执行的是后台程序。</font>
 ### 中间件的定义
 中间件的顺序很重要,可以做日志、权限管理、附加参数等方面(修改request和response,结束请求响应周期，调用下一个中间件。可以在request中增加变量，函数为后面的处理使用)
+可以在参数req或res中加上其它变量或方法，让后面的操作使用。req.foo='abc',req.name=‘wjf'等
 ```javascript
 //要写满3个参
 app.use((req,res,next)=>{
@@ -75,7 +96,7 @@ app.use((req,res,next)=>{
 //函数返回的形式
 function json(option){
     return(req,res,next)=>{
-        //处理的函数
+        //处理的函数 
         console.log(option.message)
     }
 }
@@ -90,7 +111,14 @@ function json(req,res,next){
     }
 app.use(json)
 ```
-**注意事项**：如果当前的中间件功能没有结束请求-响应周期(res.end,res.send...),<font color=red>则必须调用next()</font>将控制权传递给下一个中间件功能，否则该请求将被挂起。
+**注意事项**：如果当前的中间件功能没有结束请求-响应周期(res.end,res.send...),<font color=red>则必须调用next()</font>将控制权传递给下一个中间件功能，否则该请求将被挂起。app.get等方法如果加了next参数，也是一个中间件，也会向下找匹配的进行执行。<font color=red> 中间件的顺序很重要，是从上到下执行的，后面定义的中间件对前面的方法没有作用。 </font>
+```javascript
+app.get('/',(req,res,next)=>{
+    console.log('hello world')
+    next()
+})
+```
+
 
 ### 中间件的分类
 1. 应用程序级别的中间件

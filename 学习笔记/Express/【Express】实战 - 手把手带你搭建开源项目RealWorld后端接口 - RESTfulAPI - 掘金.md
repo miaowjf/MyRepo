@@ -22,7 +22,7 @@ npm i express
 
 创建app.js
 
-```
+```javascript
 const express = require("express");
 
 const app = express();
@@ -72,7 +72,7 @@ nodemon app.js
 -   express.json()
 -   express.urlencoded()
 
-```
+```javascript
 app.use(express.json())
 app.use(express.urlencoded())
 复制代码
@@ -89,7 +89,7 @@ npm i morgan
 
 ![在这里插入图片描述](/学习笔记/网络图片下载/在这里插入图片描述-32.webp)
 
-```
+```javascript
 const morgan = require("morgan");
 
 app.use(morgan("dev"));
@@ -107,7 +107,7 @@ npm i cors
 
 ![在这里插入图片描述](/学习笔记/网络图片下载/在这里插入图片描述.webp)
 
-```
+```javascript
 const cors = require("cors");
 
 app.use(cors());
@@ -118,7 +118,7 @@ app.use(cors());
 
 app.js
 
-```
+```javascript
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -163,7 +163,7 @@ app.listen(PORT, () => {
 
 ## ① app.js
 
-```
+```javascript
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -190,7 +190,7 @@ app.listen(PORT, () => {
 
 ## ② index.js 路由
 
-```
+```javascript
 const express = require("express");
 const router = express.Router();
 
@@ -212,7 +212,7 @@ module.exports = router;
 
 ## ③ user.js 用户相关路由
 
-```
+```javascript
 const express = require("express");
 const router = express.Router();
 
@@ -262,7 +262,7 @@ module.exports = router;
 
 ## ④ profile.js 用户资料相关路由
 
-```
+```javascript
 const express = require("express");
 const router = express.Router();
 
@@ -302,7 +302,7 @@ module.exports = router;
 
 ## ⑤ article.js 文章相关路由
 
-```
+```javascript
 const express = require("express");
 const router = express.Router();
 
@@ -422,7 +422,7 @@ module.exports = router;
 
 ## ⑥ tag.js 标签相关路由
 
-```
+```javascript
 const express = require("express");
 const router = express.Router();
 
@@ -448,7 +448,7 @@ module.exports = router;
 
 controller/user.js
 
-```
+```javascript
 // Authentication 用户登录
 exports.login = async (req, res, next) => {
   try {
@@ -493,7 +493,7 @@ exports.updateUser = async (req, res, next) => {
 
 router/user.js
 
-```
+```javascript
 const express = require("express");
 const userCtrl = require("../controller/user");
 
@@ -519,7 +519,7 @@ module.exports = router;
 
 middleware/error-handler.js
 
-```
+```javascript
 const util = require("util");
 
 module.exports = () => {
@@ -535,7 +535,7 @@ module.exports = () => {
 
 app.js
 
-```
+```javascript
 const errorHandler = require("./middleware/error-handler");
 
 // 挂载统一处理服务端错误中间件
@@ -566,7 +566,7 @@ npm i mongoose
 
 配置数据库默认地址 config/config.default.js
 
-```
+```javascript
 /**
  * 默认配置
  */
@@ -578,7 +578,7 @@ module.exports = {
 
 model/index.js
 
-```
+```javascript
 const mongoose = require("mongoose");
 const { dbURI } = require("../config/config.default");
 
@@ -602,7 +602,7 @@ db.once("open", function () {
 
 app.js引入连接数据库
 
-```
+```javascript
 require("./model");
 复制代码
 ```
@@ -613,7 +613,7 @@ require("./model");
 
 model/user.js userSchema
 
-```
+```javascript
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -655,7 +655,7 @@ module.exports = userSchema;
 
 model/index.js
 
-```
+```javascript
 const mongoose = require("mongoose");
 const { dbURI } = require("../config/config.default");
 
@@ -685,7 +685,7 @@ module.exports = {
 
 ## 6.5 将数据插入数据库
 
-```
+```javascript
 const { User } = require("../model");
 
 // Registration 用户注册
@@ -721,7 +721,7 @@ exports.register = async (req, res, next) => {
 
 model/base-model.js
 
-```
+```javascript
 module.exports = {
   createdAt: {
     type: Date,
@@ -765,7 +765,7 @@ npm i express-validator
 
 在router/user.js中加入中间件
 
-```
+```javascript
 const { body, validationResult } = require("express-validator");
 const { User } = require("../model");
 
@@ -822,7 +822,7 @@ router.post(
 
 middleware/validate.js 对验证结果进行处理，抽离在validate中间件
 
-```
+```javascript
 const { validationResult } = require("express-validator");
 
 // parallel processing 并行处理
@@ -844,7 +844,7 @@ module.exports = (validations) => {
 
 validator/user.js 将【验证规则】抽离出来
 
-```
+```javascript
 const { body } = require("express-validator");
 const validate = require("../middleware/validate");
 const { User } = require("../model");
@@ -892,7 +892,7 @@ router.post("/users", userValidator.register, userCtrl.register);
 
 密码存储在数据库中是明文存储的，应该采用密文存储 ![在这里插入图片描述](/学习笔记/网络图片下载/在这里插入图片描述-7.webp) 明文通过md5算法转换成密文
 
-```
+```javascript
 const crypto = require("crypto");
 
 // 获取 crypto 支持的散列算法
@@ -910,7 +910,7 @@ console.log(reslut)
 
 util/md5.js
 
-```
+```javascript
 const crypto = require("crypto");
 
 module.exports = (str) => {
@@ -924,7 +924,7 @@ module.exports = (str) => {
 
 在模型中配置 model/user.js
 
-```
+```javascript
 const mongoose = require("mongoose");
 const baseModle = require("./base-model");
 const md5 = require("../util/md5");
@@ -960,7 +960,7 @@ module.exports = userSchema;
 
 ![在这里插入图片描述](/学习笔记/网络图片下载/在这里插入图片描述-21.webp) 再加一条，这样返回的信息中就不包含password了
 
-```
+```javascript
 password: {
   type: String,
   required: true,
@@ -972,7 +972,7 @@ password: {
 
 还要在控制器中删除password属性，这样就不会返回了
 
-```
+```javascript
 // Registration 用户注册
 exports.register = async (req, res, next) => {
   try {
@@ -1000,7 +1000,7 @@ exports.register = async (req, res, next) => {
 
 validator/user.js 在数组中配置多个validate 前一个通过才会走下面的
 
-```
+```javascript
 exports.login = [
   validate([
     body("user.emil").notEmpty().withMessage("邮箱不能为空"),
@@ -1036,7 +1036,7 @@ exports.login = [
 复制代码
 ```
 
-```
+```javascript
 // Authentication 用户登录
 router.post("/users/login", userValidator.login, userCtrl.login);
 复制代码
@@ -1068,7 +1068,7 @@ router.post("/users/login", userValidator.login, userCtrl.login);
 
 JWT的原理是，服务器认证以后，生成一个JSON 对象，发回给用户，就像下面这样。
 
-```
+```json
 {
 "姓名":"张三"，
 "角色":"管理员",
@@ -1205,7 +1205,7 @@ npm install jsonwebtoken
 
 ![在这里插入图片描述](/学习笔记/网络图片下载/在这里插入图片描述-10.webp) 基本使用 有同步和异步两种方式，加入第三个回调函数，就是异步执行的了
 
-```
+```javascript
 const jwt = require("jsonwebtoken");
 
 // 生成jwt
@@ -1241,7 +1241,7 @@ jwt异步不是promise形式的，可以将他转换成promise形式的
 
 util /jwt.js
 
-```
+```javascript
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
@@ -1268,7 +1268,7 @@ ca8b3b61-6344-46fc-83ee-d81c0ca35480
 
 在默认配置中进行设置 config/config.default.js
 
-```
+```javascript
 /**
  * 默认配置
  */
@@ -1281,7 +1281,7 @@ module.exports = {
 
 controller/user.js
 
-```
+```javascript
 const jwt = require("../util/jwt");
 const { jwtSecret } = require("../config/config.default");
 
@@ -1317,7 +1317,7 @@ exports.login = async (req, res, next) => {
 
 ## 9.4 设置JWT过期时间
 
-```
+```javascript
 // 生成token
 const token = await jwt.sign(
   {
@@ -1340,7 +1340,7 @@ const token = await jwt.sign(
 
 middleware/auth.js
 
-```
+```javascript
 const { verify } = require("../util/jwt");
 const { jwtSecret } = require("../config/config.default");
 const { User } = require("../model");
@@ -1371,7 +1371,7 @@ module.exports = async (req, res, next) => {
 
 router/user.js
 
-```
+```javascript
 const auth = require("../middleware/auth");
 
 // Get Current User 获取当前登录用户
@@ -1381,7 +1381,7 @@ router.get("/user", auth, userCtrl.getCurrentUser);
 
 controller/user.js
 
-```
+```javascript
 // Get Current User 获取当前登录用户
 exports.getCurrentUser = async (req, res, next) => {
   try {
@@ -1410,7 +1410,7 @@ exports.getCurrentUser = async (req, res, next) => {
 
 model/article.js
 
-```
+```javascript
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const baseModle = require("./base-model");
@@ -1452,7 +1452,7 @@ module.exports = articleSchema;
 
 validator/article.js
 
-```
+```javascript
 const { body } = require("express-validator");
 const validate = require("../middleware/validate");
 
@@ -1470,7 +1470,7 @@ controller/article.js
 
 [mongoosejs.com/docs/popula…](https://link.juejin.cn/?target=https%3A%2F%2Fmongoosejs.com%2Fdocs%2Fpopulate.html "https://mongoosejs.com/docs/populate.html")
 
-```
+```javascript
 const { Article } = require("../model");
 
 // Create Article
@@ -1499,7 +1499,7 @@ exports.createArticle = async (req, res, next) => {
 
 router/article.js
 
-```
+```javascript
 // Create Article 创建文章
 router.post(
   "/",
@@ -1524,7 +1524,7 @@ router.post(
 
 validator/article.js
 
-```
+```javascript
 const mongoose = require("mongoose");
 
 exports.getArticle = validate([
@@ -1541,7 +1541,7 @@ exports.getArticle = validate([
 
 controller/article.js
 
-```
+```javascript
 // Get Article
 exports.getArticle = async (req, res, next) => {
   try {
@@ -1564,7 +1564,7 @@ exports.getArticle = async (req, res, next) => {
 
 router/article.js
 
-```
+```javascript
 // Get Article
 router.get("/:articleId", articleValidator.getArticle, articleCtrl.getArticle);
 复制代码
@@ -1580,7 +1580,7 @@ router.get("/:articleId", articleValidator.getArticle, articleCtrl.getArticle);
 
 ### 11.3.1 返回所有文章
 
-```
+```javascript
 // List Articles
 exports.listArticles = async (req, res, next) => {
   try {
@@ -1603,7 +1603,7 @@ exports.listArticles = async (req, res, next) => {
 
 ### 11.3.2 数据分页
 
-```
+```javascript
 // List Articles
 exports.listArticles = async (req, res, next) => {
   try {
@@ -1632,7 +1632,7 @@ exports.listArticles = async (req, res, next) => {
 
 ### 11.3.3 筛选标签
 
-```
+```javascript
 
 // List Articles
 exports.listArticles = async (req, res, next) => {
@@ -1668,7 +1668,7 @@ exports.listArticles = async (req, res, next) => {
 
 ### 11.3.4 筛选文章作者
 
-```
+```javascript
 // List Articles
 exports.listArticles = async (req, res, next) => {
   try {
@@ -1707,7 +1707,7 @@ exports.listArticles = async (req, res, next) => {
 
 ### 11.3.5 数据排序
 
-```
+```javascript
 const articles = await Article.find(filter)
   .skip(+offset) // 跳过多少条
   .limit(+limit) // 取多少条
@@ -1726,7 +1726,7 @@ const articles = await Article.find(filter)
 
 validate.js
 
-```
+```javascript
 const { validationResult, buildCheckFunction } = require("express-validator");
 const { isValidObjectId } = require("mongoose");
 
@@ -1743,7 +1743,7 @@ exports.isValidObjectId = (location, fields) => {
 
 validator/article.js
 
-```
+```javascript
 exports.getArticle = validate([
   validate.isValidObjectId(["params"], "articleId"),
   // param("articleId").custom(async (value) => {
@@ -1761,7 +1761,7 @@ exports.updateArticle = validate([
 
 router/article.js
 
-```
+```javascript
 // Update Article
 router.put(
   "/:articleId",
@@ -1782,7 +1782,7 @@ router.put(
 
 validator/article.js
 
-```
+```javascript
 exports.updateArticle = [
   // 校验id是否是ObjectID
   validate([validate.isValidObjectId(["params"], "articleId")]),
@@ -1812,7 +1812,7 @@ exports.updateArticle = [
 
 controller/article.js
 
-```
+```javascript
 // Update Article
 exports.updateArticle = async (req, res, next) => {
   try {
@@ -1840,7 +1840,7 @@ exports.updateArticle = async (req, res, next) => {
 
 validator/article.js
 
-```
+```javascript
 exports.deleteArticle = exports.updateArticle;
 复制代码
 ```
@@ -1849,7 +1849,7 @@ exports.deleteArticle = exports.updateArticle;
 
 router/article.js
 
-```
+```javascript
 // Delete Article
 router.delete(
   "/:articleId",
@@ -1864,7 +1864,7 @@ router.delete(
 
 controller/article.js
 
-```
+```javascript
 // Delete Article
 exports.deleteArticle = async (req, res, next) => {
   try {
@@ -1878,5 +1878,3 @@ exports.deleteArticle = async (req, res, next) => {
 };
 复制代码
 ```
-
-视频 [Express 教程（基础+实战+原理）](https://link.juejin.cn/?target=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1mQ4y1C7Cn "https://www.bilibili.com/video/BV1mQ4y1C7Cn")
